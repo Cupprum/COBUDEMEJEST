@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<form action="/jedlo" method = "post">
+  <h1>jedlo</h1>
+  <h4>{{ nazov }}</h4>
+  <h4>{{ attribute }}</h4>
+  <a href="{{ link }}">{{ link }}</a>
+  <input type="submit" name="btn" value="nove jedlo"/>
+  <input type="submit" name="btn" value="home"/>
+</form>     
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+       Results:
+       <pre>
+        {% for message in messages %}
+{{message}}
+        {% endfor %}
+       </pre>
+    {% endif %}
+   {% endwith %}
+ </div> </center> </body>
+</html>

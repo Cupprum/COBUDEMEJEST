@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<form action="/" method = "post">
+  <h1>layout</h1>
+  <input type="submit" name="btn" value="layout"/>
+</form>     
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+       Results:
+       <pre>
+        {% for message in messages %}
+{{message}}
+        {% endfor %}
+       </pre>
+    {% endif %}
+   {% endwith %}
+ </div> </center> </body>
+</html>
