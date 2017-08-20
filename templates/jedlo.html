@@ -1,23 +1,47 @@
 <!DOCTYPE html>
 <html>
-
-<form action="/jedlo" method = "post">
-  <h1>jedlo</h1>
-  <h4>{{ nazov }}</h4>
-  <h4>{{ attribute }}</h4>
-  <a href="{{ link }}">{{ link }}</a>
-  <input type="submit" name="btn" value="nove jedlo"/>
-  <input type="submit" name="btn" value="home"/>
-</form>     
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-       Results:
-       <pre>
-        {% for message in messages %}
-{{message}}
-        {% endfor %}
-       </pre>
-    {% endif %}
-   {% endwith %}
- </div> </center> </body>
+<head>
+    <style>                              
+      .checkbox
+             {
+             width: 23px; 
+             height: 23px;
+             cursor: pointer;
+             //border-radius: 60px; - nefunguje, netuším prečo..
+             }          
+             
+      .button 
+             {
+              background-color: #00e600;
+              border: none;
+              color: black;
+              border-radius: 6px;
+              padding: 15px 20px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 20px;
+              font-family: Didact Gothic;
+              cursor: pointer;
+              transition-duration: 0.2s;    
+              }
+      .button:hover 
+              {
+              background-color: #8ED3D6;
+              color: white;
+              }
+    </style>
+</head>
+<body bgcolor="ffff00">
+    <center>
+        <form action="/jedlo" method = "post">
+            <h1>jedlo</h1>
+            <h4>{{ nazov }}</h4>
+            <h4>{{ attribute }}</h4>
+            <h4><a target="_blank" href="{{ link }}">{{ link }}</a></h4>
+            <input type="submit" name="btn" value="Iné jedlo." class="button"/>
+            <input type="submit" name="btn" value="Domov" class="button"/>
+        </form>
+    </center>
+</body>
 </html>

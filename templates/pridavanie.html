@@ -34,10 +34,12 @@
 </head>
 <body bgcolor="ffff00">
     <center>
-        <form action="/" method = "post">
-          <h1>layout</h1>
-          <input type="submit" name="btn" value="Čo si dneska navaríme?" class="button"/>
-          <input type="submit" name="btn" value="Pridať jedlo" class="button"/>
+        <form action="/pridavanie" method = "post">
+            <h1>Pridavanie</h1>
+            <input type="text" name="vloztemeno" placeholder="Nazov jedla"/>
+            <input type="text" name="vlozteattribute" placeholder="Skupina"/>
+            <input type="text" name="vloztelink" placeholder="Link"/>
+            <input type="submit" name="btn" value="Pridat"/>
         </form>
     </center>
 </body>
