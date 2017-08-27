@@ -3,6 +3,8 @@ import psycopg2
 import os
 import json
 from urllib.parse import urlparse
+import xml.etree.ElementTree as ET
+
 
 app = Flask(__name__)
 url = urlparse(os.environ["DATABASE_URL"])
@@ -29,12 +31,10 @@ def jedlo():
         engine.execute('''SELECT * FROM jedlo ORDER BY RANDOM() LIMIT 1''')
         result_set = engine.fetchall()
         result_set = str(result_set)
-        result_set = result_set.replace("[(", "")
-        result_set = result_set.replace(")]", "")
-        result_set = result_set.replace("'", "")
-        print(result_set)
+        result_set = result_set.replace("[(", "").replace(")]", "").replace("'", "")
         x = result_set
         nazov, attribute, link = x.split(",")
+        print(nazov, attribute, link)
         return render_template('jedlo.html', nazov=nazov, attribute=attribute, link=link)
     elif request.method == 'POST':
         if request.form['btn'] == 'Iné jedlo.':
@@ -56,22 +56,63 @@ def pridavanie():
             nazov = request.form['vloztemeno']
             attribute = request.form['vlozteattribute']
             link = request.form['vloztelink']
-            print(nazov, attribute, link)
             rawformat = '''INSERT INTO neoverenejedlo VALUES (%s, %s, %s);'''
             engine.execute(rawformat, (nazov, attribute, link))
             engine.execute('''SELECT * FROM neoverenejedlo''')
-            result_set = engine.fetchall()
-            for r in result_set:
-                print(r)
             respond = render_template('pridavanie.html')
             return respond
+
+
+@app.route('/justadminthings', methods=['GET', 'POST'])
+def justadminthings():
+    if request.method == 'GET':
+        respond = render_template('justadminthings.html')
+        return respond
+
+    elif request.method == 'POST':
+        if request.form['btn'] == 'Potvrdit nove jedla':
+            respond = redirect(url_for('potvrdzovanie'))
+            return respond
+        elif request.form['btn'] == 'Pridat vsetko z xml':
+            url = urlparse(os.environ["DATABASE_URL"])
+            db = "dbname=%s user=%s password=%s host=%s " % (url.path[1:], url.username, url.password, url.hostname)
+            conn = psycopg2.connect(db)
+            conn.autocommit = True
+            engine = conn.cursor()
+            engine.execute("CREATE TABLE IF NOT EXISTS jedlo (nazov text, attribute text, link text);")
+
+            tree = ET.parse('jedla.xml')
+            root = tree.getroot()
+
+            ypsilon = 1
+            for jedlo in root.findall('jedlo'):
+                number = jedlo.attrib.get('number')
+                if str(ypsilon) == number:
+                    nazov = str(jedlo.find('nazov').text)
+                    attribute = str(jedlo.find('attribute').text)
+                    link = str(jedlo.find('link').text)
+                    nazov = nazov[13:-9]
+                    attribute = attribute[13:-9]
+                    link = link[13:-9]
+                    print('nazov', nazov)
+                    print('attribute', attribute)
+                    print('link', link)
+                    vklada = """INSERT INTO jedlo (nazov, attribute, link) VALUES (%s, %s, %s);"""
+                    engine.execute(vklada, (nazov, attribute, link))
+                    ypsilon += 1
+
+            engine.execute("""SELECT * FROM jedlo""")
+            return 'prepisane do databazy'
 
 
 @app.route('/potvrdzovanie', methods=['GET', 'POST'])
 def potvrdzovanie():
     if request.method == 'GET':
-        dlzka = engine.execute('''SELECT COUNT(link) FROM neoverenejedlo''')
-        print(dlzka)
+        dlzka = None
+        engine.execute('''SELECT * FROM neoverenejedlo''')
+        result_set = engine.fetchall()
+        for r in result_set:
+            dlzka = 'Something'
         if dlzka is not None:
             engine.execute('''SELECT * FROM neoverenejedlo ORDER BY RANDOM() LIMIT 1''')
             result_set = engine.fetchall()
@@ -87,9 +128,6 @@ def potvrdzovanie():
 
             engine.execute('''SELECT * FROM neoverenejedlo''')
             result_set = engine.fetchall()
-            for r in result_set:
-                print(r)
-
             return respond
 
         return redirect(url_for('home'))
@@ -102,17 +140,13 @@ def potvrdzovanie():
         link = pole['link']
 
         if request.form['btn'] == 'Potvrdit':
-            print(nazov, attribute, link, '||||||||||||||||||||||||')
             rawformat = '''INSERT INTO jedlo VALUES (%s, %s, %s);'''
             engine.execute(rawformat, (nazov, attribute, link))
 
-            return redirect(url_for('potvrdzovanie'))
+        rawformat = '''DELETE FROM neoverenejedlo WHERE nazov = %s;'''
+        engine.execute(rawformat, (nazov,))
 
-        elif request.form['btn'] == 'Vymazat':
-            rawformat = '''DELETE FROM neoverenejedlo WHERE nazov = %s;'''
-            engine.execute(rawformat, (nazov,))
-
-            return redirect(url_for('potvrdzovanie'))
+        return redirect(url_for('potvrdzovanie'))
 
 
 app.secret_key = os.environ["SESSION_KEY"]

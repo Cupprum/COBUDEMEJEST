@@ -1,0 +1,373 @@
+<root>
+    <jedlo number="1">
+        <nazov>
+            Francúzske zemiaky
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/francuzske-zemiaky-fotorecept/39506-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="2">
+        <nazov>
+            Bryndzové halušky
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/bryndzove-halusky-otorecept/15613-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="3">
+        <nazov>
+            Paprikáš
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/paprikas-z-kuracich-stehien-fotorecept/9161-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="4">
+        <nazov>
+            Zapekané cestoviny
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/najlepsie-zapekane-cestoviny-fotorecept/14534-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="5">
+        <nazov>
+            Žemľovka
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/jablkova-zemlovka-s-tvarohom-fotorecept/62011-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="6">
+        <nazov>
+            Zemiakové placky
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/zemiakove-placky/23998-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="7">
+        <nazov>
+            Lasagne
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/stavnate-lasagne-fotorecept/49867-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="8">
+        <nazov>
+            Ryžový nákyp
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/ryzovy-nakyp-s-penou-fotorecept/27876-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="9">
+        <nazov>
+            Pečené kura
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/pecene-kurca-ako-od-maminky-fotorecept/40841-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="10">
+        <nazov>
+            Vyprážaný rezeň
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/vyprazany-rezen-klasika-fotorecept/14983-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="11">
+        <nazov>
+            Avokádová nátierka
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/avokadova-natierka-fotorecept/27652-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="12">
+        <nazov>
+            Vyprážaný syr
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/vyprazany-syr-fotorecept/33740-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="13">
+        <nazov>
+            Nakladaný hermelín
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/nakladany-hermelin/31164-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="14">
+        <nazov>
+            Grilovaný hermelín
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/grilovany-peceny-encian-hermelin-fotorecept/43979-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="15">
+        <nazov>
+            Langoše
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/celkom-obycajne-langose-fotorecept/25147-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="16">
+        <nazov>
+            Kapustové fliačky
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/kapustove-fliacky-fotorecept/62620-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="17">
+        <nazov>
+            Pečený kapor
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/peceny-kapor-na-vine-fotorecept/61926-diskusia.html
+        </link>
+    </jedlo>
+
+    <jedlo number="18">
+        <nazov>
+            Držková polievka
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/drzkova-polievka-fotorecept/39871-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="19">
+        <nazov>
+            Fazuľová polievka
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/syta-fazulova-polievka-fotorecept/15408-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="20">
+        <nazov>
+            Kôprová omáčka
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/koprova-omacka-fotorecept/28575-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="21">
+        <nazov>
+            Paradajková omáčka
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/paradajkova-omacka-arrabiata-fotorecept/37299-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="22">
+        <nazov>
+            Parené buchty
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/parene-buchty-fotorecept/25909-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="23">
+        <nazov>
+            Fazuľová omáčka
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/fazulova-omacka-s-udenym-masom-fotorecept/50981-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="24">
+        <nazov>
+            Špenátový prívarok
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/spenatovy-privarok-s-fasirkou-fotorecept/67846-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="25">
+        <nazov>
+            Hamburger
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://www.beabout.sk/?gclid=EAIaIQobChMI7fKX173y1QIVUyjTCh3uLwVJEAAYASAAEgIwR_D_BwE
+        </link>
+    </jedlo>
+
+    <jedlo number="26">
+        <nazov>
+            Ryžový nákyp
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/ryzovy-nakyp-s-penou-fotorecept/27876-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="27">
+        <nazov>
+            Grilované kuracie prsia
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/grilovane-kuracie-prsia-fotorecept/19109-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="28">
+        <nazov>
+            Tekvicový prívarok
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/tekvicovy-privarok-fotorecept/17085-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="29">
+        <nazov>
+            Vyprážaný karfiol
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/vyprazany-karfiol-fotorecept/18178-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="30">
+        <nazov>
+            Plnená paprika a paradajková omáčka
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/plnena-paprika-fotorecept/68092-recept.html
+        </link>
+    </jedlo>
+
+    <jedlo number="31">
+        <nazov>
+            Dusené hovädzie mäso a ryža
+        </nazov>
+        <attribute>
+            Hlavné jedlo
+        </attribute>
+        <link>
+            https://varecha.pravda.sk/recepty/hovadzie-maso-na-stave-fotorecept/66135-recept.html
+        </link>
+    </jedlo>    
+</root>
