@@ -4,6 +4,7 @@ import os
 import json
 from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
+import random
 
 
 app = Flask(__name__)
@@ -66,13 +67,27 @@ def pridavanie():
 @app.route('/justadminthings', methods=['GET', 'POST'])
 def justadminthings():
     if request.method == 'GET':
-        respond = render_template('justadminthings.html')
+        global engine
+        pocetjedal = 0
+        loopdata = []
+        try:
+	        engine.execute('''SELECT nazov FROM jedlo''')
+	        result_set = engine.fetchall()
+	        for r in result_set:
+	            print(r)
+	            r = random.choice(r[0:1])
+	            pocetjedal += 1
+	            loopdata.append(r)
+        except psycopg2.ProgrammingError:
+        	pass
+        respond = render_template('justadminthings.html', loopdata=loopdata)
         return respond
 
     elif request.method == 'POST':
         if request.form['btn'] == 'Potvrdit nove jedla':
             respond = redirect(url_for('potvrdzovanie'))
             return respond
+
         elif request.form['btn'] == 'Pridat vsetko z xml':
             url = urlparse(os.environ["DATABASE_URL"])
             db = "dbname=%s user=%s password=%s host=%s " % (url.path[1:], url.username, url.password, url.hostname)
@@ -88,6 +103,7 @@ def justadminthings():
             for jedlo in root.findall('jedlo'):
                 number = jedlo.attrib.get('number')
                 if str(ypsilon) == number:
+                    dlzka = None
                     nazov = str(jedlo.find('nazov').text)
                     attribute = str(jedlo.find('attribute').text)
                     link = str(jedlo.find('link').text)
@@ -97,12 +113,36 @@ def justadminthings():
                     print('nazov', nazov)
                     print('attribute', attribute)
                     print('link', link)
-                    vklada = """INSERT INTO jedlo (nazov, attribute, link) VALUES (%s, %s, %s);"""
-                    engine.execute(vklada, (nazov, attribute, link))
+                    engine.execute('''SELECT * FROM jedlo WHERE nazov = '%s' ''' % (nazov,))
+                    result_set = engine.fetchall()
+                    for r in result_set:
+                        print('RRRRRRRRRR', r)
+                        dlzka = 'something'
+                    if dlzka is None:
+                        vklada = """INSERT INTO jedlo (nazov, attribute, link) VALUES (%s, %s, %s);"""
+                        engine.execute(vklada, (nazov, attribute, link))
                     ypsilon += 1
-
-            engine.execute("""SELECT * FROM jedlo""")
             return 'prepisane do databazy'
+
+        elif request.form['btn'] == 'Vymazat vsetko z databazy':
+            engine.execute('''DELETE FROM jedlo''')
+            return 'v databaze sa nic nenachadza'
+
+        elif request.form['btn'] == 'Vymaz jedno':
+            dlzka = None
+            nazov = str(request.form['txt'])
+            print(nazov, '|||||||||||||||||||')
+            engine.execute('''SELECT * FROM jedlo WHERE nazov = '%s' ''' % (nazov,))
+            result_set = engine.fetchall()
+            for r in result_set:
+                print(r)
+                dlzka = 'something'
+            if dlzka is None:
+                return 'nenachadza sa v databaze'
+
+            rawformat = '''DELETE FROM jedlo WHERE nazov = %s;'''
+            engine.execute(rawformat, (nazov,))
+            return 'uspesne vymazane'
 
 
 @app.route('/potvrdzovanie', methods=['GET', 'POST'])
