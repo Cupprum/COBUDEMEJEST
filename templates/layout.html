@@ -35,9 +35,17 @@
 <body bgcolor="ffff00">
     <center>
         <form action="/" method = "post">
-          <h1>layout</h1>
-          <input type="submit" name="btn" value="Čo si dneska navaríme?" class="button"/>
-          <input type="submit" name="btn" value="Pridať jedlo" class="button"/>
+          <table>
+            <tr>
+              <h1>layout</h1>
+            </tr>
+            <tr>
+              <img class="image" src={{ fotka }} alt="logo"/>
+            </tr>
+          <tr>
+            <td><input type="submit" name="btn" value="Čo si dneska navaríme?" class="button"/></td>
+            <td><input type="submit" name="btn" value="Pridať jedlo" class="button"/></td>
+          </tr>
         </form>
     </center>
 </body>

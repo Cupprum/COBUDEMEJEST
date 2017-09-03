@@ -15,10 +15,15 @@ conn.autocommit = True
 engine = conn.cursor()
 
 
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
-        return render_template('layout.html')
+        return render_template('layout.html', fotka="http://2.bp.blogspot.com/-69psdMrg8k4/VSFdvWUCz-I/AAAAAAAA9Pk/HF55KIGeR2U/s1600/DSC08230.JPG")
     elif request.method == 'POST':
         if request.form['btn'] == 'Čo si dneska navaríme?':
             return redirect(url_for('jedlo'))
@@ -63,25 +68,46 @@ def pridavanie():
             respond = render_template('pridavanie.html')
             return respond
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        respond = render_template('login.html')
+        session['password'] = None
+        return respond
+    if request.method == 'POST':
+        if request.form['btn'] == 'Submit':
+            passcode = request.form['passcode']
+            mysecretkey = app.secret_key
+            if passcode == mysecretkey:
+                respond = redirect(url_for('justadminthings'))
+                session['password'] = app.secret_key
+                return respond 
+            respond = redirect(url_for('home'))
+            return respond
 
 @app.route('/justadminthings', methods=['GET', 'POST'])
 def justadminthings():
     if request.method == 'GET':
-        global engine
-        pocetjedal = 0
-        loopdata = []
-        try:
-	        engine.execute('''SELECT nazov FROM jedlo''')
-	        result_set = engine.fetchall()
-	        for r in result_set:
-	            print(r)
-	            r = random.choice(r[0:1])
-	            pocetjedal += 1
-	            loopdata.append(r)
-        except psycopg2.ProgrammingError:
-        	pass
-        respond = render_template('justadminthings.html', loopdata=loopdata)
-        return respond
+        kookie = session.get('password')
+        if kookie == app.secret_key:
+            global engine
+            pocetjedal = 0
+            loopdata = []
+            try:
+                engine.execute('''SELECT nazov FROM jedlo''')
+                result_set = engine.fetchall()
+                for r in result_set:
+                    print(r)
+                    r = random.choice(r[0:1])
+                    pocetjedal += 1
+                    loopdata.append(r)
+            except psycopg2.ProgrammingError:
+                pass
+            respond = render_template('justadminthings.html', loopdata=loopdata)
+            return respond
+        else:
+            respond = redirect(url_for('home'))
+            return respond
 
     elif request.method == 'POST':
         if request.form['btn'] == 'Potvrdit nove jedla':
@@ -116,17 +142,18 @@ def justadminthings():
                     engine.execute('''SELECT * FROM jedlo WHERE nazov = '%s' ''' % (nazov,))
                     result_set = engine.fetchall()
                     for r in result_set:
-                        print('RRRRRRRRRR', r)
                         dlzka = 'something'
                     if dlzka is None:
                         vklada = """INSERT INTO jedlo (nazov, attribute, link) VALUES (%s, %s, %s);"""
                         engine.execute(vklada, (nazov, attribute, link))
                     ypsilon += 1
-            return 'prepisane do databazy'
+            respond = render_template('justadminthings.html', cosatodeje='PREPISANE DO DATABAZY')
+            return respond
 
         elif request.form['btn'] == 'Vymazat vsetko z databazy':
             engine.execute('''DELETE FROM jedlo''')
-            return 'v databaze sa nic nenachadza'
+            respond = render_template('justadminthings.html', cosatodeje='V DATABAZE SA NIC NENACHADZA')
+            return respond
 
         elif request.form['btn'] == 'Vymaz jedno':
             dlzka = None
@@ -138,11 +165,14 @@ def justadminthings():
                 print(r)
                 dlzka = 'something'
             if dlzka is None:
-                return 'nenachadza sa v databaze'
+                respond = render_template('justadminthings.html', cosatodeje='NENACHADZA SA V DATABAZE')
+                return respond
 
             rawformat = '''DELETE FROM jedlo WHERE nazov = %s;'''
             engine.execute(rawformat, (nazov,))
-            return 'uspesne vymazane'
+            respond = render_template('justadminthings.html', cosatodeje='USPESNE VYMAZANE')
+            return respond
+
 
 
 @app.route('/potvrdzovanie', methods=['GET', 'POST'])
