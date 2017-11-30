@@ -23,7 +23,9 @@ def make_session_permanent():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
-        return render_template('layout.html', fotka="http://2.bp.blogspot.com/-69psdMrg8k4/VSFdvWUCz-I/AAAAAAAA9Pk/HF55KIGeR2U/s1600/DSC08230.JPG")
+        engine.execute('''SELECT fotka FROM jedlo ORDER BY RANDOM() LIMIT 1''')
+        result_set = str(random.choice(engine.fetchall()))[2: -3]
+        return render_template('layout.html', fotka=result_set)
     elif request.method == 'POST':
         if request.form['btn'] == 'Čo si dneska navaríme?':
             return redirect(url_for('jedlo'))
@@ -39,9 +41,8 @@ def jedlo():
         result_set = str(result_set)
         result_set = result_set.replace("[(", "").replace(")]", "").replace("'", "")
         x = result_set
-        nazov, attribute, link = x.split(",")
-        print(nazov, attribute, link)
-        return render_template('jedlo.html', nazov=nazov, attribute=attribute, link=link)
+        nazov, attribute, link, fotka = x.split(",")
+        return render_template('jedlo.html', nazov=nazov, attribute=attribute, link=link, fotka=fotka[1:])
     elif request.method == 'POST':
         if request.form['btn'] == 'Iné jedlo.':
             respond = redirect(url_for('jedlo'))
@@ -68,6 +69,7 @@ def pridavanie():
             respond = render_template('pridavanie.html')
             return respond
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -81,9 +83,10 @@ def login():
             if passcode == mysecretkey:
                 respond = redirect(url_for('justadminthings'))
                 session['password'] = app.secret_key
-                return respond 
+                return respond
             respond = redirect(url_for('home'))
             return respond
+
 
 @app.route('/justadminthings', methods=['GET', 'POST'])
 def justadminthings():
@@ -120,7 +123,7 @@ def justadminthings():
             conn = psycopg2.connect(db)
             conn.autocommit = True
             engine = conn.cursor()
-            engine.execute("CREATE TABLE IF NOT EXISTS jedlo (nazov text, attribute text, link text);")
+            engine.execute("CREATE TABLE IF NOT EXISTS jedlo (nazov text, attribute text, link text, fotka text);")
 
             tree = ET.parse('jedla.xml')
             root = tree.getroot()
@@ -133,25 +136,28 @@ def justadminthings():
                     nazov = str(jedlo.find('nazov').text)
                     attribute = str(jedlo.find('attribute').text)
                     link = str(jedlo.find('link').text)
+                    fotka = str(jedlo.find('fotka').text)
                     nazov = nazov[13:-9]
                     attribute = attribute[13:-9]
                     link = link[13:-9]
+                    fotka = fotka[13:-9]
                     print('nazov', nazov)
                     print('attribute', attribute)
                     print('link', link)
+                    print('fotka', fotka)
                     engine.execute('''SELECT * FROM jedlo WHERE nazov = '%s' ''' % (nazov,))
                     result_set = engine.fetchall()
                     for r in result_set:
                         dlzka = 'something'
                     if dlzka is None:
-                        vklada = """INSERT INTO jedlo (nazov, attribute, link) VALUES (%s, %s, %s);"""
-                        engine.execute(vklada, (nazov, attribute, link))
+                        vklada = """INSERT INTO jedlo (nazov, attribute, link, fotka) VALUES (%s, %s, %s, %s);"""
+                        engine.execute(vklada, (nazov, attribute, link, fotka))
                     ypsilon += 1
             respond = render_template('justadminthings.html', cosatodeje='PREPISANE DO DATABAZY')
             return respond
 
         elif request.form['btn'] == 'Vymazat vsetko z databazy':
-            engine.execute('''DELETE FROM jedlo''')
+            engine.execute('''DROP TABLE jedlo''')
             respond = render_template('justadminthings.html', cosatodeje='V DATABAZE SA NIC NENACHADZA')
             return respond
 
@@ -172,7 +178,6 @@ def justadminthings():
             engine.execute(rawformat, (nazov,))
             respond = render_template('justadminthings.html', cosatodeje='USPESNE VYMAZANE')
             return respond
-
 
 
 @app.route('/potvrdzovanie', methods=['GET', 'POST'])

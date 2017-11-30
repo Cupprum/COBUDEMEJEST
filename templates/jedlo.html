@@ -1,46 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <style>                              
-      .checkbox
-             {
-             width: 23px; 
-             height: 23px;
-             cursor: pointer;
-             //border-radius: 60px; - nefunguje, netuším prečo..
-             }          
-             
-      .button 
-             {
-              background-color: #00e600;
-              border: none;
-              color: black;
-              border-radius: 6px;
-              padding: 15px 20px;
-              text-align: center;
-              text-decoration: none;
-              display: inline-block;
-              font-size: 20px;
-              font-family: Didact Gothic;
-              cursor: pointer;
-              transition-duration: 0.2s;    
-              }
-      .button:hover 
-              {
-              background-color: #00cc99;
-              color: white;
-              }
-    </style>
-</head>
-<body bgcolor="ffff00">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+<body bgcolor="ffffff">
     <center>
         <form action="/jedlo" method = "post">
-            <h1>jedlo</h1>
-            <h4>{{ nazov }}</h4>
-            <h4>{{ attribute }}</h4>
-            <h4><a target="_blank" href="{{ link }}">{{ link }}</a></h4>
-            <input type="submit" name="btn" value="Iné jedlo." class="button"/>
+            <p class="p">Dnesne jedlo bude : {{ nazov }}</p>
+            <p class="p">Kategoria :{{ attribute }}</p>
+            <img style="height:300px" class="image" src={{ fotka }} alt="logo"/>
+            <p class="p"><a target="_blank" href="{{ link }}">Recept je tuto :)</a></p>
             <input type="submit" name="btn" value="Domov" class="button"/>
+            <input type="submit" name="btn" value="Iné jedlo." class="button"/>
         </form>
     </center>
 </body>
