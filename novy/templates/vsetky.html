@@ -1,0 +1,15 @@
+<html>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+<body>
+<center>
+    <form action="/vsetkojedlo" method = "post">
+        <table class="menu_table" width='100'>
+        {% for x in loopdata %}
+            <tr><input type="submit" name="btn" value='{{ x }}' class="button"/></tr>
+            <p></p>
+        {% endfor %}
+        </table>
+    </form>
+</center>
+</body>
+</html>

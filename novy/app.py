@@ -25,22 +25,44 @@ def home():
     if request.method == 'GET':
         engine.execute('''SELECT fotka FROM jedlo ORDER BY RANDOM() LIMIT 1''')
         result_set = str(random.choice(engine.fetchall()))[2: -3]
-        return render_template('layout.html', fotka=result_set)
+        return render_template('layout.html', fotka=result_set, alles=True)
     elif request.method == 'POST':
-        if request.form['btn'] == 'Čo si dneska navaríme?':
-            return redirect(url_for('jedlo'))
-        elif request.form['btn'] == 'Pridať jedlo':
-            return redirect(url_for('pridavanie'))
+        moznosti1 = ['RANAJKY', 'HLAVNE JEDLA', 'POLIEVKY', 'VECERE', 'KOLACE A DEZERTY']
+        moznosti2 = ['NAHODNE RANAJKY', 'NAHODNE HLAVNE JEDLA', 'NAHODNE POLIEVKY', 'NAHODNE VECERE', 'NAHODNE KOLACE A DEZERTY']
+        moznosti3 = ['VSETKY RANAJKY', 'VSETKY HLAVNE JEDLA', 'VSETKY POLIEVKY', 'VSETKY VECERE', 'VSETKY KOLACE A DEZERTY']
+        if request.form['btn'] in moznosti1:
+            for x in range(len(moznosti1)):
+                if request.form['btn'] == moznosti1[x]:
+                    engine.execute('''SELECT fotka FROM jedlo ORDER BY RANDOM() LIMIT 1''')
+                    result_set = str(random.choice(engine.fetchall()))[2: -3]
+                    return render_template('layout.html', fotka=result_set, nieco=x)
+        elif request.form['btn'][0:7] == 'NAHODNE':
+            for x in range(len(moznosti2)):
+                if request.form['btn'] == moznosti2[x]:
+                    session['kategoria_nahodne'] = x
+                    respond = redirect(url_for('jedlo'))
+                    return respond
+        elif request.form['btn'][0:6] == 'VSETKY':
+            for x in range(len(moznosti3)):
+                if request.form['btn'] == moznosti3[x]:
+                    session['kategoria_vsetky'] = x
+                    respond = redirect(url_for('vsetkojedlo'))
+                    return respond
 
 
 @app.route('/jedlo', methods=['GET', 'POST'])
 def jedlo():
     if request.method == 'GET':
-        engine.execute('''SELECT * FROM jedlo ORDER BY RANDOM() LIMIT 1''')
+        moznosti1 = ['RANAJKY', 'HLAVNE JEDLA', 'POLIEVKY', 'VECERE', 'KOLACE A DEZERTY']
+        kategoria = moznosti1[session['kategoria_nahodne']]
+        session['kategoria_nahodne'] = None
+        hladavdatabaze = '''SELECT * FROM jedlo WHERE attribute=%s ORDER BY RANDOM() LIMIT 1;'''
+        engine.execute(hladavdatabaze, (kategoria,))
         result_set = engine.fetchall()
         result_set = str(result_set)
         result_set = result_set.replace("[(", "").replace(")]", "").replace("'", "")
         x = result_set
+        print(x)
         nazov, attribute, link, fotka = x.split(",")
         return render_template('jedlo.html', nazov=nazov, attribute=attribute, link=link, fotka=fotka[1:])
     elif request.method == 'POST':
@@ -52,21 +74,49 @@ def jedlo():
             return respond
 
 
+@app.route('/vsetkojedlo', methods=['GET', 'POST'])
+def vsetkojedlo():
+    if request.method == 'GET':
+        moznosti1 = ['RANAJKY', 'HLAVNE JEDLA', 'POLIEVKY', 'VECERE', 'KOLACE A DEZERTY']
+        kategoria = moznosti1[session['kategoria_vsetky']]
+        session['kategoria_vsetky'] = None
+        hladavdatabaze = '''SELECT nazov FROM jedlo WHERE attribute=%s'''
+        engine.execute(hladavdatabaze, (kategoria,))
+        list_jedal = []
+        for row in engine:
+            list_jedal.append(row[0])
+        respond = render_template('vsetky.html', loopdata=list_jedal)
+        return respond
+    if request.method == 'POST':
+        hladavdatabaze = '''SELECT * FROM jedlo WHERE nazov=%s'''
+        engine.execute(hladavdatabaze, (request.form['btn'],))
+        result_set = engine.fetchall()
+        result_set = str(result_set)
+        result_set = result_set.replace("[(", "").replace(")]", "").replace("'", "")
+        x = result_set
+        nazov, attribute, link, fotka = x.split(",")
+        return render_template('jedlo.html', nazov=nazov, attribute=attribute, link=link, fotka=fotka[1:])
+
+
 @app.route('/pridavanie', methods=['GET', 'POST'])
 def pridavanie():
     if request.method == 'GET':
-        engine.execute("CREATE TABLE IF NOT EXISTS neoverenejedlo (nazov text, attribute text, link text);")
+        engine.execute("CREATE TABLE IF NOT EXISTS neoverenejedlo (nazov text, attribute text, link text, fotka text);")
         respond = render_template('pridavanie.html')
         return respond
     elif request.method == 'POST':
         if request.form['btn'] == 'Pridat':
-            nazov = request.form['vloztemeno']
-            attribute = request.form['vlozteattribute']
-            link = request.form['vloztelink']
-            rawformat = '''INSERT INTO neoverenejedlo VALUES (%s, %s, %s);'''
-            engine.execute(rawformat, (nazov, attribute, link))
-            engine.execute('''SELECT * FROM neoverenejedlo''')
-            respond = render_template('pridavanie.html')
+            try:
+                nazov = request.form['vloztemeno']
+                attribute = request.form['vlozteattribute']
+                link = request.form['vloztelink']
+                fotka = request.form['vloztefotku']
+                rawformat = '''INSERT INTO neoverenejedlo VALUES (%s, %s, %s, %s);'''
+                engine.execute(rawformat, (nazov, attribute, link, fotka))
+                engine.execute('''SELECT * FROM neoverenejedlo''')
+                respond = render_template('pridavanie.html', vysledok='Podarilo sa')
+            except:
+                respond = render_template('pridavanie.html', vysledok='Nevyslo :( zrejme tam mas chybu :(')
             return respond
 
 
@@ -179,6 +229,11 @@ def justadminthings():
             respond = render_template('justadminthings.html', cosatodeje='USPESNE VYMAZANE')
             return respond
 
+        elif request.form['btn'] == 'Vymazat vsetko z databazy pridanych jedal':
+            engine.execute('''DROP TABLE neoverenejedlo''')
+            respond = render_template('justadminthings.html', cosatodeje='V DATABAZE S NAVRHOVANYMI JEDLAMI SA NIC NENACHADZA')
+            return respond
+
 
 @app.route('/potvrdzovanie', methods=['GET', 'POST'])
 def potvrdzovanie():
@@ -196,11 +251,10 @@ def potvrdzovanie():
             result_set = result_set.replace(")]", "")
             result_set = result_set.replace("'", "")
             x = result_set
-            nazov, attribute, link = x.split(",")
-            pole = {'nazov': nazov, 'attribute': attribute, 'link': link}
-            respond = render_template('potvrdzovanie.html', nazov=nazov, attribute=attribute, link=link)
+            nazov, attribute, link, fotka = x.split(",")
+            pole = {'nazov': nazov, 'attribute': attribute, 'link': link, 'fotka': fotka}
+            respond = render_template('potvrdzovanie.html', nazov=nazov, attribute=attribute, link=link, fotka=fotka)
             session['novejedlo'] = json.dumps(pole)
-
             engine.execute('''SELECT * FROM neoverenejedlo''')
             result_set = engine.fetchall()
             return respond
@@ -213,10 +267,11 @@ def potvrdzovanie():
         nazov = pole['nazov']
         attribute = pole['attribute']
         link = pole['link']
+        fotka = pole['fotka']
 
         if request.form['btn'] == 'Potvrdit':
-            rawformat = '''INSERT INTO jedlo VALUES (%s, %s, %s);'''
-            engine.execute(rawformat, (nazov, attribute, link))
+            rawformat = '''INSERT INTO jedlo VALUES (%s, %s, %s, %s);'''
+            engine.execute(rawformat, (nazov, attribute, link, fotka))
 
         rawformat = '''DELETE FROM neoverenejedlo WHERE nazov = %s;'''
         engine.execute(rawformat, (nazov,))

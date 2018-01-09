@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
 <form action="/potvrdzovanie" method = "post">
   <h1>Potvrdzovanie</h1>
-  <h4>{{ nazov }}</h4>
-  <h4>{{ attribute }}</h4>
-  <h4>{{ link }}</h4>
+  <p class="p">{{ fotka }}</p>
+  <p class="p">{{ nazov }}</p>
+  <p class="p">{{ attribute }}</p>
+  <p class="p">{{ link }}</p>
   <input type="submit" name="btn" value="Potvrdit"/>
   <input type="submit" name="btn" value="Vymazat"/>
 </form>     

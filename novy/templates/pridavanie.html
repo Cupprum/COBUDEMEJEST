@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+<body bgcolor="ffffff">
+    <center>
+        <form action="/pridavanie" method = "post">
+            <p class="p">Tuto mozes pomoct nasmu programu a rozsirit databazu s jedlami :).</p>
+            <p class="p">{{ vysledok }}</p>
+            <input type="text" name="vloztemeno" placeholder="Nazov jedla"/>
+            <input type="text" name="vlozteattribute" placeholder="Skupina"/>
+            <input type="text" name="vloztelink" placeholder="Link"/>
+            <input type="text" name="vloztefotku" placeholder="Vlozte fotku"/>
+            <input type="submit" name="btn" value="Pridat" class="button"/>
+        </form>
+    </center>
+</body>
+</html>
