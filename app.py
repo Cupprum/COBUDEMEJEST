@@ -76,54 +76,6 @@ def zoznam():
         return respond
 
 
-"""
-@app.route('/vsetkojedlo', methods=['GET', 'POST'])
-def vsetkojedlo():
-    if request.method == 'GET':
-        moznosti1 = ['RANAJKY', 'HLAVNE JEDLA', 'POLIEVKY', 'VECERE', 'KOLACE A DEZERTY']
-        kategoria = moznosti1[session['kategoria_vsetky']]
-        session['kategoria_vsetky'] = None
-        hladavdatabaze = '''SELECT nazov FROM jedlo WHERE attribute=%s'''
-        engine.execute(hladavdatabaze, (kategoria,))
-        list_jedal = []
-        for row in engine:
-            list_jedal.append(row[0])
-        list_jedal.sort()
-        respond = render_template('vsetky.html', loopdata=list_jedal)
-        return respond
-    if request.method == 'POST':
-        hladavdatabaze = '''SELECT * FROM jedlo WHERE nazov=%s'''
-        engine.execute(hladavdatabaze, (request.form['btn'],))
-        result_set = engine.fetchall()
-        result_set = str(result_set)
-        result_set = result_set.replace("[(", "").replace(")]", "").replace("'", "")
-        x = result_set
-        nazov, attribute, link, fotka = x.split(",")
-        return render_template('jedlo.html', nazov=nazov, attribute=attribute, link=link, fotka=fotka[1:])
-
-
-@app.route('/pridavanie', methods=['GET', 'POST'])
-def pridavanie():
-    if request.method == 'GET':
-        engine.execute("CREATE TABLE IF NOT EXISTS neoverenejedlo (nazov text, attribute text, link text, fotka text);")
-        respond = render_template('pridavanie.html')
-        return respond
-    elif request.method == 'POST':
-        if request.form['btn'] == 'Pridat':
-            try:
-                nazov = request.form['vloztemeno']
-                attribute = request.form['vlozteattribute']
-                link = request.form['vloztelink']
-                fotka = request.form['vloztefotku']
-                rawformat = '''INSERT INTO neoverenejedlo VALUES (%s, %s, %s, %s);'''
-                engine.execute(rawformat, (nazov, attribute, link, fotka))
-                engine.execute('''SELECT * FROM neoverenejedlo''')
-                respond = render_template('pridavanie.html', vysledok='Podarilo sa')
-            except:
-                respond = render_template('pridavanie.html', vysledok='Nevyslo :( zrejme tam mas chybu :(')
-            return respond
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -177,7 +129,7 @@ def justadminthings():
             conn = psycopg2.connect(db)
             conn.autocommit = True
             engine = conn.cursor()
-            engine.execute("CREATE TABLE IF NOT EXISTS jedlo (nazov text, attribute text, link text, fotka text);")
+            engine.execute("CREATE TABLE IF NOT EXISTS jedlo (nazov text, attribute text, link text);")
 
             tree = ET.parse('jedla.xml')
             root = tree.getroot()
@@ -190,22 +142,16 @@ def justadminthings():
                     nazov = str(jedlo.find('nazov').text)
                     attribute = str(jedlo.find('attribute').text)
                     link = str(jedlo.find('link').text)
-                    fotka = str(jedlo.find('fotka').text)
                     nazov = nazov[13:-9]
                     attribute = attribute[13:-9]
                     link = link[13:-9]
-                    fotka = fotka[13:-9]
-                    print('nazov', nazov)
-                    print('attribute', attribute)
-                    print('link', link)
-                    print('fotka', fotka)
                     engine.execute('''SELECT * FROM jedlo WHERE nazov = '%s' ''' % (nazov,))
                     result_set = engine.fetchall()
                     for r in result_set:
                         dlzka = 'something'
                     if dlzka is None:
-                        vklada = '''INSERT INTO jedlo (nazov, attribute, link, fotka) VALUES (%s, %s, %s, %s);'''
-                        engine.execute(vklada, (nazov, attribute, link, fotka))
+                        vklada = '''INSERT INTO jedlo (nazov, attribute, link) VALUES (%s, %s, %s);'''
+                        engine.execute(vklada, (nazov, attribute, link))
                     ypsilon += 1
             respond = render_template('justadminthings.html', cosatodeje='PREPISANE DO DATABAZY')
             return respond
@@ -237,6 +183,55 @@ def justadminthings():
             engine.execute('''DROP TABLE neoverenejedlo''')
             respond = render_template('justadminthings.html', cosatodeje='V DATABAZE S NAVRHOVANYMI JEDLAMI SA NIC NENACHADZA')
             return respond
+
+
+"""
+@app.route('/vsetkojedlo', methods=['GET', 'POST'])
+def vsetkojedlo():
+    if request.method == 'GET':
+        moznosti1 = ['RANAJKY', 'HLAVNE JEDLA', 'POLIEVKY', 'VECERE', 'KOLACE A DEZERTY']
+        kategoria = moznosti1[session['kategoria_vsetky']]
+        session['kategoria_vsetky'] = None
+        hladavdatabaze = '''SELECT nazov FROM jedlo WHERE attribute=%s'''
+        engine.execute(hladavdatabaze, (kategoria,))
+        list_jedal = []
+        for row in engine:
+            list_jedal.append(row[0])
+        list_jedal.sort()
+        respond = render_template('vsetky.html', loopdata=list_jedal)
+        return respond
+    if request.method == 'POST':
+        hladavdatabaze = '''SELECT * FROM jedlo WHERE nazov=%s'''
+        engine.execute(hladavdatabaze, (request.form['btn'],))
+        result_set = engine.fetchall()
+        result_set = str(result_set)
+        result_set = result_set.replace("[(", "").replace(")]", "").replace("'", "")
+        x = result_set
+        nazov, attribute, link, fotka = x.split(",")
+        return render_template('jedlo.html', nazov=nazov, attribute=attribute, link=link, fotka=fotka[1:])
+
+
+@app.route('/pridavanie', methods=['GET', 'POST'])
+def pridavanie():
+    if request.method == 'GET':
+        engine.execute("CREATE TABLE IF NOT EXISTS neoverenejedlo (nazov text, attribute text, link text, fotka text);")
+        respond = render_template('pridavanie.html')
+        return respond
+    elif request.method == 'POST':
+        if request.form['btn'] == 'Pridat':
+            try:
+                nazov = request.form['vloztemeno']
+                attribute = request.form['vlozteattribute']
+                link = request.form['vloztelink']
+                fotka = request.form['vloztefotku']
+                rawformat = '''INSERT INTO neoverenejedlo VALUES (%s, %s, %s, %s);'''
+                engine.execute(rawformat, (nazov, attribute, link, fotka))
+                engine.execute('''SELECT * FROM neoverenejedlo''')
+                respond = render_template('pridavanie.html', vysledok='Podarilo sa')
+            except:
+                respond = render_template('pridavanie.html', vysledok='Nevyslo :( zrejme tam mas chybu :(')
+            return respond
+
 
 
 @app.route('/potvrdzovanie', methods=['GET', 'POST'])
