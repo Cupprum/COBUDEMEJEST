@@ -131,7 +131,7 @@ def justadminthings():
             engine = conn.cursor()
             engine.execute("CREATE TABLE IF NOT EXISTS jedlo (nazov text, attribute text, link text);")
 
-            tree = ET.parse('jedla.xml')
+            tree = ET.parse('jedlo.xml')
             root = tree.getroot()
 
             ypsilon = 1
