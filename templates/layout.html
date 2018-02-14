@@ -1,88 +1,108 @@
-<html>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+ <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+</head>
 <body>
-  <center>
     <form action="/" method = "post">
-      <div style="width: 101.6%;height: 9%;background: brown;margin-top: -1%;margin-left: -1%"></div>
-      <table class="tabulka" style="border-top: 20px solid #ff6600;margin-top: 1%">
+    <table style="margin-top: 15px">
         <tr>
-          <td rowspan="2" align="left" valign="top" width=50%>
-            <h1 class="menu" style="font-size: 35px;">MENU</h1>
-            {% if alles %}
-            <div>
-              <input type="submit" name="btn" value="RANAJKY" class="button" style="height: 55px;width: 180px;color: yellow"/>
-            </div>
-            <div>
-              <input type="submit" name="btn" value="HLAVNE JEDLA" class="button"
-              style="height: 55px;margin-top: 20px;width: 240px;color: yellow"/>
-            </div>
-            <div>
-              <input type="submit" name="btn" value="POLIEVKY" class="button"
-              style="height: 55px;margin-top: 20px;width: 195px;color: yellow"/>
-            </div>
-            <div>
-              <input type="submit" name="btn" value="VECERE" class="button"
-              style="height: 55px;margin-top: 20px;width: 180px;color: yellow"/>
-            </div>
-            <div>
-              <input type="submit" name="btn" value="KOLACE A DEZERTY" class="button"
-              style="height: 55px;margin-top: 20px;width: 280px;color: yellow"/>
-            </div>
-            <div>
-              <input type="submit" name="btn" value="NAHODNY VYBER" class="button2"
-              style="height: 55px;width: 270px;color: yellow"/>
-            </div>
-            {% endif %}
-            {% if nieco == 0 %}
-              <input type="submit" name="btn" value="NAHODNE RANAJKY" class="button"
-              style="width: 260px;color: yellow"/>
-              <input type="submit" name="btn" value="VSETKY RANAJKY" class="button"
-              style="width: 260px;color: yellow;margin-top: 2%"/>
-            {% endif %}
-            {% if nieco == 1 %}
-              <input type="submit" name="btn" value="NAHODNE HLAVNE JEDLA" class="button"
-              style="width: 300px;color: yellow"/>
-              <input type="submit" name="btn" value="VSETKY HLAVNE JEDLA" class="button"
-              style="width: 300px;color: yellow;margin-top: 2%"/>
-            {% endif %}
-            {% if nieco == 2 %}
-              <input type="submit" name="btn" value="NAHODNE POLIEVKY" class="button"
-              style="width: 260px;color: yellow"/>
-              <input type="submit" name="btn" value="VSETKY POLIEVKY" class="button"
-              style="width: 260px;color: yellow;margin-top: 2%"/>
-            {% endif %}
-            {% if nieco == 3 %}
-              <input type="submit" name="btn" value="NAHODNE VECERE" class="button"
-              style="width: 260px;color: yellow"/>
-              <input type="submit" name="btn" value="VSETKY VECERE" class="button"
-              style="width: 260px;color: yellow;margin-top: 2%"/>
-            {% endif %}
-            {% if nieco == 4 %}
-              <input type="submit" name="btn" value="NAHODNE KOLACE A DEZERTY" class="button"
-              style="width: 350px;color: yellow"/>
-              <input type="submit" name="btn" value="VSETKY KOLACE A DEZERTY" class="button"
-              style="width: 350px;color: yellow;margin-top: 2%"/>
-            {% endif %}
-          </td>
-          <td align="left" valign="top" height="40%">
-            <div class="pravastrana menu" style="font-size: 18px;color: yellow">NAJVYHLADAVANEJSIE</div>
-            <div>
-              <img style="height: 220px;margin-top: 2%;margin-left: 20px" class="image" src="nwmcotoje.png"/>
-              <img style="height: 220px;margin-left: 20px" class="image" src="nwmcotoje.png"/>
-            </div>
-          </td>
+            <th style="text-align: left;width: 45%">
+                <img src="/static/cooking_final.png" style="height:50px;">
+            </th>
+            <th style="text-align: center;width: 10%;">
+                <button class="span_line"><span class="span_line">DOMOV</span></button>
+            </th>
+            <th style="text-align: center;width: 20%;">
+                <button class="span_line"><span class="span_line">O NAS</span></button>
+            </th>
+            <th>
+                <div class="group" style="margin-bottom: 2%;">      
+                    <input type="text">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Vyhladavanie</label>
+                </div>
+            </th>
         </tr>
-        <tr>  
-          <td align="left" valign="top" height="40%">
-            <div class="pravastrana menu" style="font-size: 18px;color: yellow">TIP NA DNESNY DEN</div>
-            <div>
-              <img style="height: 220px;margin-top: 2%;margin-left: 20px" class="image" src={{ fotka }}/>
-              <img style="height: 220px;margin-left: 20px" class="image" src="nwmcotoje.png"/>
-            </div>
-          </td>
+    </table>
+    <div class="rectangle" style="position: absolute;"></div>
+    
+    <img src="/static/cooking_final.png" style="width: 50%;margin-left: 25%;position: absolute;bottom: 50%">
+    <button type="submit" class="tlacitko2" name="btn" value="zoznam" style="position: absolute;bottom: 40%; margin-left: 31.5%">
+        <div style="margin-top: -8px;">ZOZNAM JEDAL</div>
+    </button>
+    <button type="submit" class="tlacitko" name="btn" value="nahodny_vyber_vsetko" style="position: absolute;bottom: 40%; margin-left: 51%;">
+        <div style="margin-top: -8px;">NAHODNY VYBER</div>
+    </button>
+    
+    <div class="rectangle" style="height: 25%; bottom: 0"></div>
+    <table style="position: absolute;bottom: 0;">
+        <tr>
+            <th><span class="dot"></span></th>
+            <th><span class="dot"></span></th>
+            <th><span class="dot"></span></th>
+            <th><span class="dot"></span></th>
         </tr>
-      </table>
+        <tr>
+            <th>
+            <div class="popover__wrapper">
+                <span class="span_line">RANAJKY</span>
+                <div class="push popover__content" style="margin-left: -165px">
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
+                    </button>
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                        <span style="font-size: 15px">NAHODNY VYBER</span>
+                    </button>
+                </div>
+            </div>
+            </th>
+            <th>
+            <div class="popover__wrapper">
+                <span class="span_line">OBED</span>
+                <div class="push popover__content" style="margin-left: -185px;">
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
+                    </button>
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                        <span style="font-size: 15px">NAHODNY VYBER</span>
+                    </button>
+                </div>
+            </div>
+            </th>
+            <th>
+            <div class="popover__wrapper">
+                <span class="span_line">VECERA</span>
+                <div class="push popover__content" style="margin-left: -175px">
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
+                    </button>
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                        <span style="font-size: 15px">NAHODNY VYBER</span>
+                    </button>
+                </div>
+            </div>
+            </th>
+            <th>
+            <div class="popover__wrapper">
+                <span class="span_line">DEZERT</span>
+                <div class="push popover__content"  style="margin-left: -175px">
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
+                    </button>
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                        <span style="font-size: 15px">NAHODNY VYBER</span>
+                    </button>
+                </div>
+            </div>
+            </th>
+        </tr>
+        <tr>
+            <th><span style="font-size: 30px;">&#9674;</span></th>
+            <th><span style="font-size: 30px;">&#9674;</span></th>
+            <th><span style="font-size: 30px;">&#9674;</span></th>
+            <th><span style="font-size: 30px;">&#9674;</span></th>
+        </tr>
+    </table>
     </form>
-  </center>
 </body>
-</html>
