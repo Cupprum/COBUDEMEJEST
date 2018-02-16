@@ -24,7 +24,6 @@ span{
    font-weight: normal;
 }
 
-
 /* Search box ------------------------------- */
 .group        {
   position:relative; 
@@ -34,7 +33,7 @@ input         {
   font-size:18px;
   padding:10px 10px 10px 5px;
   display:block;
-  width:300px;
+  width:90%;
   border:none;
   border-bottom:1px solid #757575;
 }
@@ -59,7 +58,7 @@ input:focus ~ label{
   color:#e60000;
 }
 
-.bar  { position:relative; display:block; width:300px; }
+.bar  { position:relative; display:block; width:90%; }
 .bar:before, .bar:after   {
   content:'';
   height:2px; 
@@ -179,7 +178,6 @@ input:focus ~ .highlight {
   background-color: rgba(0,0,0,0);
   border: solid 1px #000000;
   padding: 20px;
-  width: 17.5%;
   height: 50px;
   text-align: center;
   -webkit-transition-duration: 0.4s; /* Safari */
@@ -209,6 +207,7 @@ input:focus ~ .highlight {
 
 .tlacitka_spodny_panel{
   background-color: #bfbfbf;
+  width: 17.5%
 }
 
 .span_line {
@@ -297,4 +296,8 @@ input:focus ~ .highlight {
   top: 22%;
   position: absolute;
   text-align: center;
+}
+
+.tlacitko_fix_center_panel {
+  width: 250px; 
 }
