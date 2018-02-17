@@ -1,129 +1,60 @@
  <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 </head>
 <body>
     <form action="/zoznam" method = "post">
-    <table style="margin-top: 15px">
-        <tr>
-            <th style="text-align: left;width: 45%">
-                <img src="/static/cooking_final.png" style="height:50px;">
-            </th>
-            <th style="text-align: center;width: 10%;">
-                <button class="span_line"><span class="span_line">DOMOV</span></button>
-            </th>
-            <th style="text-align: center;width: 20%;">
-                <button class="span_line"><span class="span_line">O NAS</span></button>
-            </th>
-            <th>
-                <div class="group" style="margin-bottom: 2%;">      
-                    <input type="text">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Vyhladavanie</label>
-                </div>
-            </th>
-        </tr>
-    </table>
-    <div class="rectangle" style="position: absolute;"></div>
+    <img src="/static/cooking_final.png" style="height:50px; top: 15px; position: absolute;">
+    <button type="submit" class="span_line" name="btn" value="DOMOV" style="top: 30px;right: 45%;position: absolute;">
+        <span class="span_line">DOMOV</span>
+    </button>
+    <button type="submit" class="span_line" name="btn" value="ONAS" style="top: 30px;right: 35%;position: absolute;">
+        <span class="span_line">O NAS</span>
+    </button>
+    <div class="group" style="position: absolute; top: 15px;right: 0">      
+        <input type="text">
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Vyhladavanie</label>
+    </div>            
 
-    <span class="rolldown_button" style="margin-left: 8%; padding-left: 100px;padding-right: 100px">RANAJKY</span>
-    <ul style="margin-left: 8%" class="list_style">
+    <div class="rectangle" style="position: absolute; top: 75px"></div>
+
+    <ul style="left: 3%" class="list_style">
+        <li>
+            <span class="rolldown_button" style="right: 20px; top: -7%;padding-left: 100px;padding-right: 100px">RANAJKY</span>
+        </li>
         {% for a in obed %}
             <li><button class="span_line jinja2"><span>{{ a }}</span></button></li>
         {% endfor %}
     </ul>
 
-    <span class="rolldown_button" style="margin-left: 31%; padding-left: 119px;padding-right: 119px">OBED</span>
-    <ul style="margin-left: 31%" class="list_style">
+    <ul style="left: 25.5%" class="list_style">
+        <li>
+            <span class="rolldown_button" style="right: 20px; top: -7%;padding-left: 119px;padding-right: 119px">OBED</span>
+        </li>
         {% for a in obed %}
             <li><button class="span_line jinja2"><span>{{ a }}</span></button></li>
         {% endfor %}
     </ul>
 
-    <span class="rolldown_button" style="margin-left: 54%; padding-left: 107.5px;padding-right: 107.5px">VECERA</span>
-    <ul style="margin-left: 54%" class="list_style">
+    <ul style="left: 48%" class="list_style">
+        <li>
+            <span class="rolldown_button" style="right: 20px; top: -7%;padding-left: 107.5px;padding-right: 107.5px">VECERA</span>
+        </li>
         {% for a in obed %}
             <li><button class="span_line jinja2"><span>{{ a }}</span></button></li>
         {% endfor %}
     </ul>
 
-    <span class="rolldown_button" style="margin-left: 77%; padding-left: 109px;padding-right: 109px">DEZERT</span>
-    <ul style="margin-left: 77%" class="list_style">
+    <ul style="left: 70.5%" class="list_style">
+        <li>
+            <span class="rolldown_button" style="right: 20px; top: -7%;padding-left: 109px;padding-right: 109px">DEZERT</span>
+        </li>
         {% for a in obed %}
             <li><button class="span_line jinja2"><span>{{ a }}</span></button></li>
         {% endfor %}
     </ul>
-
-
-    <div class="rectangle" style="height: 25%; bottom: 0"></div>
-    <table style="position: absolute;bottom: 0;">
-        <tr>
-            <th><span class="dot"></span></th>
-            <th><span class="dot"></span></th>
-            <th><span class="dot"></span></th>
-            <th><span class="dot"></span></th>
-        </tr>
-        <tr>
-            <th>
-            <div class="popover__wrapper">
-                <span class="span_line">RANAJKY</span>
-                <div class="push popover__content" style="margin-left: -165px">
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
-                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                    </button>
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
-                        <span style="font-size: 15px">NAHODNY VYBER</span>
-                    </button>
-                </div>
-            </div>
-            </th>
-            <th>
-            <div class="popover__wrapper">
-                <span class="span_line">OBED</span>
-                <div class="push popover__content" style="margin-left: -185px;">
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
-                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                    </button>
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
-                        <span style="font-size: 15px">NAHODNY VYBER</span>
-                    </button>
-                </div>
-            </div>
-            </th>
-            <th>
-            <div class="popover__wrapper">
-                <span class="span_line">VECERA</span>
-                <div class="push popover__content" style="margin-left: -175px">
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
-                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                    </button>
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
-                        <span style="font-size: 15px">NAHODNY VYBER</span>
-                    </button>
-                </div>
-            </div>
-            </th>
-            <th>
-            <div class="popover__wrapper">
-                <span class="span_line">DEZERT</span>
-                <div class="push popover__content"  style="margin-left: -175px">
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
-                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                    </button>
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
-                        <span style="font-size: 15px">NAHODNY VYBER</span>
-                    </button>
-                </div>
-            </div>
-            </th>
-        </tr>
-        <tr>
-            <th><span style="font-size: 30px;">&#9674;</span></th>
-            <th><span style="font-size: 30px;">&#9674;</span></th>
-            <th><span style="font-size: 30px;">&#9674;</span></th>
-            <th><span style="font-size: 30px;">&#9674;</span></th>
-        </tr>
-    </table>
     </form>
 </body>

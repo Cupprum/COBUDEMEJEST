@@ -1,13 +1,22 @@
  <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 </head>
 <body>
+    {% if html_layout %}
     <form action="/" method = "post">
+    {% endif %}
+    {% if html_jedlo %}
+    <form action="/jedlo" method = "post">
+    {% endif %}
     <img src="/static/cooking_final.png" style="height:50px; top: 15px; position: absolute;">
-    <button class="span_line" style="top: 30px;right: 45%;position: absolute;"><span class="span_line">DOMOV</span></button>
-    <button class="span_line" style="top: 30px;right: 35%;position: absolute;"><span class="span_line">O NAS</span></button>
+    <button type="submit" class="span_line" name="btn" value="DOMOV" style="top: 30px;right: 45%;position: absolute;">
+        <span class="span_line">DOMOV</span>
+    </button>
+    <button type="submit" class="span_line" name="btn" value="ONAS" style="top: 30px;right: 35%;position: absolute;">
+        <span class="span_line">O NAS</span>
+    </button>
     <div class="group" style="position: absolute; top: 15px;right: 0">      
         <input type="text">
         <span class="highlight"></span>
@@ -16,8 +25,12 @@
     </div>            
 
     <div class="rectangle" style="position: absolute; top: 75px"></div>
-
-    <img src="/static/cooking_final.png" style="width: 50%;margin-left: 25%;position: absolute;bottom: 50%">
+    {% if html_layout %}
+        <img src="/static/cooking_final.png" style="width: 50%;margin-left: 25%;position: absolute;bottom: 50%">
+    {% endif %}
+    {% if html_jedlo %}
+        <a href={{ link }} target="_blank"><h1 class="jedlo">{{ jedlo }}</h1></a>
+    {% endif %}
     <button type="submit" class="tlacitko2 tlacitko_fix_center_panel" name="btn" value="zoznam" style="position: absolute;bottom: 40%; right: 52%">
         <div style="margin-top: -8px;">ZOZNAM JEDAL</div>
     </button>
@@ -35,10 +48,10 @@
             <div class="popover__wrapper">
                 <span class="span_line">RANAJKY</span>
                 <div class="push popover__content" style="margin-left: -165px">
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                    <button class="tlacitko2 tlacitka_spodny_panel">
                         <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
                     </button>
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                    <button type="submit" name="btn" value="ranajky_random" class="tlacitko2 tlacitka_spodny_panel">
                         <span style="font-size: 15px">NAHODNY VYBER</span>
                     </button>
                 </div>
@@ -57,10 +70,10 @@
             <div class="popover__wrapper">
                 <span class="span_line">OBED</span>
                 <div class="push popover__content" style="margin-left: -183px">
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                    <button class="tlacitko2 tlacitka_spodny_panel">
                         <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
                     </button>
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                    <button type="submit" name="btn" value="obed_random" class="tlacitko2 tlacitka_spodny_panel">
                         <span style="font-size: 15px">NAHODNY VYBER</span>
                     </button>
                 </div>
@@ -79,10 +92,10 @@
             <div class="popover__wrapper">
                 <span class="span_line">VECERA</span>
                 <div class="push popover__content" style="margin-left: -175px">
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                    <button class="tlacitko2 tlacitka_spodny_panel">
                         <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
                     </button>
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                    <button type="submit" name="btn" value="vecera_random" class="tlacitko2 tlacitka_spodny_panel">
                         <span style="font-size: 15px">NAHODNY VYBER</span>
                     </button>
                 </div>
@@ -101,10 +114,10 @@
             <div class="popover__wrapper">
                 <span class="span_line">DEZERT</span>
                 <div class="push popover__content" style="margin-left: -175px">
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                    <button class="tlacitko2 tlacitka_spodny_panel">
                         <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
                     </button>
-                    <button class="tlacitko2 tlacitka_spodny_panel" style="width: 220px; height: 55px;">
+                    <button type="submit" name="btn" value="dezert_random" class="tlacitko2 tlacitka_spodny_panel">
                         <span style="font-size: 15px">NAHODNY VYBER</span>
                     </button>
                 </div>
@@ -114,6 +127,4 @@
             <span style="font-size: 30px;">&#9674;</span>
         </li>
     </ul>
-
-    </form>
-</body>
+</form></body>

@@ -23,36 +23,82 @@ def make_session_permanent():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
-        return render_template('layout.html')
+        session['kategoria'] = None
+        return render_template('layout.html', html_layout=True)
+
     elif request.method == 'POST':
-        if request.form['btn'] == "nahodny_vyber_vsetko":
+        print(request.form)
+        list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
+        list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
+        if request.form['btn'] == "DOMOV":
+            respond = make_response(redirect(url_for('home')))
+            return respond
+
+        elif request.form['btn'] == "ONAS":
+            return "nefunguje"
+
+        elif request.form['btn'] == "nahodny_vyber_vsetko":
+            session['kategoria'] = 'everything'
             respond = make_response(redirect(url_for('jedlo')))
             return respond
+
         elif request.form['btn'] == "zoznam":
             respond = make_response(redirect(url_for('zoznam')))
+            return respond
+
+        elif request.form['btn'] in list_random_kategorie:
+            for a in range(len(list_random_kategorie)):
+                print(request.form['btn'], list_random_kategorie[a])
+                if request.form['btn'] == list_random_kategorie[a]:
+                    session['kategoria'] = list_kategorie[a]
+                    break
+            respond = make_response(redirect(url_for('jedlo')))
             return respond
 
 
 @app.route('/jedlo', methods=['GET', 'POST'])
 def jedlo():
-
     if request.method == 'GET':
-        engine.execute('''SELECT * FROM jedlo ORDER BY RANDOM() LIMIT 1''')
+        kategoria = session['kategoria']
+        print('kategoria', kategoria)
+        if kategoria == 'everything':
+            engine.execute('''SELECT * FROM jedlo ORDER BY RANDOM() LIMIT 1''')
+        else:
+            hlada = '''SELECT * FROM jedlo WHERE attribute = %s ORDER BY RANDOM() LIMIT 1'''
+            engine.execute(hlada, (kategoria,))
         result_set = str(engine.fetchall()).replace("[(", "").replace(")]", "").replace("'", "")
+        print(result_set)
         jedlo, attribute, link = result_set.split(",")
-        respond = make_response(render_template('jedlo.html', jedlo=jedlo, link=link))
+        respond = make_response(render_template('jedlo.html', html_jedlo=True, jedlo=jedlo, link=link))
         return respond
 
-    if request.method == 'POST':
-        if request.form['btn'] == 'nahodny_vyber_vsetko':
-            engine.execute('''SELECT * FROM jedlo ORDER BY RANDOM() LIMIT 1''')
-            result_set = str(engine.fetchall()).replace("[(", "").replace(")]", "").replace("'", "")
-            jedlo, attribute, link = result_set.split(",")
-            respond = make_response(render_template('jedlo.html', jedlo=jedlo, link=link))
+    elif request.method == 'POST':
+        print(request.form)
+        list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
+        list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
+        if request.form['btn'] == "DOMOV":
+            respond = make_response(redirect(url_for('home')))
+            return respond
+
+        elif request.form['btn'] == "ONAS":
+            return "nefunguje"
+
+        elif request.form['btn'] == "nahodny_vyber_vsetko":
+            session['kategoria'] = 'everything'
+            respond = make_response(redirect(url_for('jedlo')))
             return respond
 
         elif request.form['btn'] == "zoznam":
             respond = make_response(redirect(url_for('zoznam')))
+            return respond
+
+        elif request.form['btn'] in list_random_kategorie:
+            for a in range(len(list_random_kategorie)):
+                print(request.form['btn'], list_random_kategorie[a])
+                if request.form['btn'] == list_random_kategorie[a]:
+                    session['kategoria'] = list_kategorie[a]
+                    break
+            respond = make_response(redirect(url_for('jedlo')))
             return respond
 
 
