@@ -121,6 +121,14 @@ def zoznam():
                                 dezert=attribute['dezert']))
         return respond
 
+    elif request.method == 'POST':
+        if request.form['btn'] == "DOMOV":
+            respond = make_response(redirect(url_for('home')))
+            return respond
+
+        elif request.form['btn'] == "ONAS":
+            return "nefunguje"
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
