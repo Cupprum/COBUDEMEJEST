@@ -69,7 +69,7 @@ def jedlo():
         result_set = str(engine.fetchall()).replace("[(", "").replace(")]", "").replace("'", "")
         print(result_set)
         jedlo, attribute, link = result_set.split(",")
-        respond = make_response(render_template('jedlo.html', html_jedlo=True, jedlo=jedlo, link=link))
+        respond = make_response(render_template('layout.html', html_jedlo=True, jedlo=jedlo, link=link))
         return respond
 
     elif request.method == 'POST':
