@@ -124,7 +124,7 @@
             Avokádová nátierka
         </nazov>
         <attribute>
-            obed
+            ranajky
         </attribute>
         <link>
             https://varecha.pravda.sk/recepty/avokadova-natierka-fotorecept/27652-recept.html
@@ -172,7 +172,7 @@
             Langoše
         </nazov>
         <attribute>
-            obed
+            vecera
         </attribute>
         <link>
             https://varecha.pravda.sk/recepty/celkom-obycajne-langose-fotorecept/25147-recept.html
@@ -299,19 +299,7 @@
         </link>
     </jedlo>
 
-    <jedlo number="26">
-        <nazov>
-            Ryžový nákyp
-        </nazov>
-        <attribute>
-            obed
-        </attribute>
-        <link>
-            https://varecha.pravda.sk/recepty/ryzovy-nakyp-s-penou-fotorecept/27876-recept.html
-        </link>
-    </jedlo>
-
-    <jedlo number="27">
+    <jedlo number="28">
         <nazov>
             Grilované kuracie prsia
         </nazov>
@@ -323,7 +311,7 @@
         </link>
     </jedlo>
 
-    <jedlo number="28">
+    <jedlo number="29">
         <nazov>
             Tekvicový prívarok
         </nazov>
@@ -335,7 +323,7 @@
         </link>
     </jedlo>
 
-    <jedlo number="29">
+    <jedlo number="30">
         <nazov>
             Vyprážaný karfiol
         </nazov>
@@ -347,7 +335,7 @@
         </link>
     </jedlo>
 
-    <jedlo number="30">
+    <jedlo number="31">
         <nazov>
             Plnená paprika a paradajková omáčka
         </nazov>
@@ -359,7 +347,7 @@
         </link>
     </jedlo>
 
-    <jedlo number="31">
+    <jedlo number="32">
         <nazov>
             Dusené hovädzie mäso a ryža
         </nazov>
