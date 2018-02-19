@@ -132,7 +132,7 @@ input:focus ~ .highlight {
 .rectangle{
   position: absolute;
   width: 101%;
-  height: 0.5%;
+  height: 5px;
   margin-left: -0.5%;
   border-style: none;
   background-color: #ffffff;
