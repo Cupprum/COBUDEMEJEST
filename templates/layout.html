@@ -6,7 +6,12 @@
 <body>
     <div class="wrapper">
     </div>
+    {% if html_layout %}
     <form action="/" method = "post">
+    {% endif %}
+    {% if html_jedlo %}
+    <form action="/jedlo" method = "post">
+    {% endif %}
     <img src="/static/cooking_final.png" style="height:50px; top: 15px; position: absolute;">
     <button type="submit" class="span_line" name="btn" value="DOMOV" style="top: 30px;right: 45%;position: absolute;">
         <span class="span_line">DOMOV</span>
