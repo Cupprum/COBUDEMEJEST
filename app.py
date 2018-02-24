@@ -1,18 +1,11 @@
-from flask import Flask, request, render_template, redirect, url_for, session, make_response
-import psycopg2
+from flask import request, render_template, redirect, url_for, session, make_response
 import os
 import json
-from urllib.parse import urlparse
-import xml.etree.ElementTree as ET
 import random
+from sql_table_maker import db, app, jedlo_sql, create_func, drop_func, insert_one_func, insert_all_func
 
 
-app = Flask(__name__)
-url = urlparse(os.environ["DATABASE_URL"])
-db = "dbname=%s user=%s password=%s host=%s " % (url.path[1:], url.username, url.password, url.hostname)
-conn = psycopg2.connect(db)
-conn.autocommit = True
-engine = conn.cursor()
+db.create_all()
 
 
 @app.before_request
@@ -27,7 +20,6 @@ def home():
         return render_template('layout.html', html_layout=True)
 
     elif request.method == 'POST':
-        print(request.form)
         list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
         list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
         if request.form['btn'] == "DOMOV":
@@ -48,7 +40,6 @@ def home():
 
         elif request.form['btn'] in list_random_kategorie:
             for a in range(len(list_random_kategorie)):
-                print(request.form['btn'], list_random_kategorie[a])
                 if request.form['btn'] == list_random_kategorie[a]:
                     session['kategoria'] = list_kategorie[a]
                     break
@@ -62,14 +53,16 @@ def jedlo():
         kategoria = session['kategoria']
         print('kategoria', kategoria)
         if kategoria == 'everything':
-            engine.execute('''SELECT * FROM jedlo ORDER BY RANDOM() LIMIT 1''')
+            aktualne_jedlo_nerandom = jedlo_sql.query.all()
+            print(len(aktualne_jedlo_nerandom))
+            random_number = random.randint(0, len(aktualne_jedlo_nerandom))
+            aktualne_jedlo = aktualne_jedlo_nerandom[random_number]
         else:
-            hlada = '''SELECT * FROM jedlo WHERE attribute = %s ORDER BY RANDOM() LIMIT 1'''
-            engine.execute(hlada, (kategoria,))
-        result_set = str(engine.fetchall()).replace("[(", "").replace(")]", "").replace("'", "")
-        print(result_set)
-        jedlo, attribute, link = result_set.split(",")
-        respond = make_response(render_template('layout.html', html_jedlo=True, jedlo=jedlo, link=link))
+            aktualne_jedlo_nerandom = jedlo_sql.query.filter_by(attribute=kategoria).all()
+            print(len(aktualne_jedlo_nerandom))
+            random_number = random.randint(0, len(aktualne_jedlo_nerandom))
+            aktualne_jedlo = aktualne_jedlo_nerandom[random_number]
+        respond = make_response(render_template('layout.html', html_jedlo=True, jedlo=aktualne_jedlo.nazov, link=aktualne_jedlo.link))
         return respond
 
     elif request.method == 'POST':
@@ -108,11 +101,9 @@ def zoznam():
         attribute = {'ranajky': [], 'obed': [], 'vecera': [], 'dezert': []}
         list_attributov = ['ranajky', 'obed', 'vecera', 'dezert']
         for a in list_attributov:
-            hlada_v_databaze = '''SELECT nazov FROM jedlo WHERE attribute=%s'''
-            engine.execute(hlada_v_databaze, (a,))
-            result_set = engine.fetchall()
-            for b in result_set:
-                attribute[a].append(b[0])
+            searching_for_food = jedlo_sql.query.filter_by(attribute=a).all()
+            for b in searching_for_food:
+                attribute[a].append(b.nazov)
 
         respond = make_response(render_template('zoznam.html',
                                 ranajky=attribute['ranajky'],
@@ -156,16 +147,10 @@ def justadminthings():
             global engine
             pocetjedal = 0
             loopdata = []
-            try:
-                engine.execute('''SELECT nazov FROM jedlo''')
-                result_set = engine.fetchall()
-                for r in result_set:
-                    print(r)
-                    r = random.choice(r[0:1])
-                    pocetjedal += 1
-                    loopdata.append(r)
-            except psycopg2.ProgrammingError:
-                pass
+            all_food = jedlo_sql.query.all()
+            for a in all_food:
+                loopdata.append(a.nazov)
+                pocetjedal += 1
             respond = render_template('justadminthings.html', loopdata=loopdata)
             return respond
         else:
@@ -178,40 +163,12 @@ def justadminthings():
             return respond
 
         elif request.form['btn'] == 'Pridat vsetko z xml':
-            url = urlparse(os.environ["DATABASE_URL"])
-            db = "dbname=%s user=%s password=%s host=%s " % (url.path[1:], url.username, url.password, url.hostname)
-            conn = psycopg2.connect(db)
-            conn.autocommit = True
-            engine = conn.cursor()
-            engine.execute("CREATE TABLE IF NOT EXISTS jedlo (nazov text, attribute text, link text);")
-
-            tree = ET.parse('jedlo.xml')
-            root = tree.getroot()
-
-            ypsilon = 1
-            for jedlo in root.findall('jedlo'):
-                number = jedlo.attrib.get('number')
-                if str(ypsilon) == number:
-                    dlzka = None
-                    nazov = str(jedlo.find('nazov').text)
-                    attribute = str(jedlo.find('attribute').text)
-                    link = str(jedlo.find('link').text)
-                    nazov = nazov[13:-9]
-                    attribute = attribute[13:-9]
-                    link = link[13:-9]
-                    engine.execute('''SELECT * FROM jedlo WHERE nazov = '%s' ''' % (nazov,))
-                    result_set = engine.fetchall()
-                    for r in result_set:
-                        dlzka = 'something'
-                    if dlzka is None:
-                        vklada = '''INSERT INTO jedlo (nazov, attribute, link) VALUES (%s, %s, %s);'''
-                        engine.execute(vklada, (nazov, attribute, link))
-                    ypsilon += 1
+            insert_all_func()
             respond = render_template('justadminthings.html', cosatodeje='PREPISANE DO DATABAZY')
             return respond
 
         elif request.form['btn'] == 'Vymazat vsetko z databazy':
-            engine.execute('''DROP TABLE jedlo''')
+            drop_func()
             respond = render_template('justadminthings.html', cosatodeje='V DATABAZE SA NIC NENACHADZA')
             return respond
 
