@@ -60,7 +60,7 @@ def jedlo():
         else:
             aktualne_jedlo_nerandom = jedlo_sql.query.filter_by(attribute=kategoria).all()
             print(len(aktualne_jedlo_nerandom))
-            random_number = random.randint(0, len(aktualne_jedlo_nerandom))
+            random_number = random.randint(0, len(aktualne_jedlo_nerandom) + 1)
             aktualne_jedlo = aktualne_jedlo_nerandom[random_number]
         respond = make_response(render_template('layout.html', html_jedlo=True, jedlo=aktualne_jedlo.nazov, link=aktualne_jedlo.link))
         return respond
