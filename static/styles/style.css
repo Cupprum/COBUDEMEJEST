@@ -131,9 +131,8 @@ input:focus ~ .highlight {
 /* white line */
 .rectangle{
   position: absolute;
-  width: 101%;
+  width: 100%;
   height: 5px;
-  margin-left: -0.5%;
   border-style: none;
   background-color: #ffffff;
 }

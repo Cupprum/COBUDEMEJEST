@@ -30,7 +30,7 @@
         <label>Vyhladavanie</label>
     </div>            
 
-    <div class="rectangle" style="position: absolute; top: 75px"></div>
+    <div class="rectangle" style="top: 75px"></div>
     {% if html_layout %}
         <img src="/static/cooking_final.png" style="width: 50%;margin-left: 25%;position: absolute;bottom: 50%">
     {% endif %}
@@ -134,7 +134,6 @@
             <span style="font-size: 30px;">&#9674;</span>
         </li>
     </ul>
-
 <script>
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
@@ -152,6 +151,6 @@ $(function(){
     }).click(function(e) {
         e.preventDefault();
     });
-});
+}); 
 </script>
 </form></body>
