@@ -9,7 +9,7 @@ a{
 }
 
 a:hover{
-   color:#2ecc71;
+   color:rgba(0,0,0,0);
 }
 
 span{
@@ -318,4 +318,14 @@ input:focus ~ .highlight {
 
 .tlacitko_fix_center_panel {
   width: 250px; 
+}
+
+.popover.top .arrow {
+  display: none;
+}
+
+.popover {
+  height: 120px;
+  width: 220px;
+  border: solid 0px #000000;
 }

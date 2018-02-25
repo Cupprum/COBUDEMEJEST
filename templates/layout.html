@@ -1,4 +1,9 @@
  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -41,22 +46,23 @@
     
     <div class="rectangle" style="height: 27%; bottom: 0%"></div>
 
+
     <ul style="position: absolute;bottom: 0%;left: 8%;list-style-type:none">
         <li>
             <span class="dot"></span>
         </li>
         <li style="margin-left: 6px;">
-            <div class="popover__wrapper">
-                <span class="span_line">RANAJKY</span>
-                <div class="popover__content" style="margin-left: -165px">
-                    <button class="tlacitko2 tlacitka_spodny_panel">
+            <div style="list-style-type:none">
+                <a href="#" rel="popover" data-trigger="focus" data-placement="top" data-popover-content="#myPopover"><span class="span_line">RANAJKY</span></a>
+                <div id="myPopover" class="hide">
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="margin-left: -15px">
                         <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
                     </button>
-                    <button type="submit" name="btn" value="ranajky_random" class="tlacitko2 tlacitka_spodny_panel">
+                    <button type="submit" name="btn" value="ranajky_random" class="tlacitko2 tlacitka_spodny_panel" style="margin-left: -15px">
                         <span style="font-size: 15px">NAHODNY VYBER</span>
                     </button>
                 </div>
-            </div>   
+            </div>
         </li>
         <li style="margin-left: 42.5px">
             <span style="font-size: 30px;">&#9674;</span>
@@ -68,17 +74,17 @@
             <span class="dot"></span>
         </li>
         <li style="margin-left: 25px;">
-            <div class="popover__wrapper">
-                <span class="span_line">OBED</span>
-                <div class="popover__content" style="margin-left: -183px">
-                    <button class="tlacitko2 tlacitka_spodny_panel">
+            <div style="list-style-type:none">
+                <a href="" rel="popover" data-placement="top" data-popover-content="#myPopover"><span class="span_line">OBED</span></a>
+                <div id="myPopover" class="hide">
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="margin-left: -15px">
                         <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
                     </button>
-                    <button type="submit" name="btn" value="obed_random" class="tlacitko2 tlacitka_spodny_panel">
+                    <button type="submit" name="btn" value="obed_random" class="tlacitko2 tlacitka_spodny_panel" style="margin-left: -15px">
                         <span style="font-size: 15px">NAHODNY VYBER</span>
                     </button>
                 </div>
-            </div>   
+            </div>
         </li>
         <li style="margin-left: 42.5px">
             <span style="font-size: 30px;">&#9674;</span>
@@ -89,18 +95,18 @@
         <li>
             <span class="dot"></span>
         </li>
-        <li style="margin-left: 13.5px;">
-            <div class="popover__wrapper">
-                <span class="span_line">VECERA</span>
-                <div class="popover__content" style="margin-left: -175px">
-                    <button class="tlacitko2 tlacitka_spodny_panel">
+          <li style="margin-left: 13px;">
+            <div style="list-style-type:none">
+                <a href="#" rel="popover"  data-trigger="focus" data-placement="top" data-popover-content="#myPopover"><span class="span_line">VECERA</span></a>
+                <div id="myPopover" class="hide">
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="margin-left: -15px">
                         <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
                     </button>
-                    <button type="submit" name="btn" value="vecera_random" class="tlacitko2 tlacitka_spodny_panel">
+                    <button type="submit" name="btn" value="vecera_random" class="tlacitko2 tlacitka_spodny_panel" style="margin-left: -15px">
                         <span style="font-size: 15px">NAHODNY VYBER</span>
                     </button>
                 </div>
-            </div>   
+            </div>
         </li>
         <li style="margin-left: 42.5px">
             <span style="font-size: 30px;">&#9674;</span>
@@ -112,20 +118,40 @@
             <span class="dot"></span>
         </li>
         <li style="margin-left: 15px;">
-            <div class="popover__wrapper">
-                <span class="span_line">DEZERT</span>
-                <div class="popover__content" style="margin-left: -175px">
-                    <button class="tlacitko2 tlacitka_spodny_panel">
+            <div style="list-style-type:none">
+                <a href="#" rel="popover"  data-trigger="focus" data-placement="top" data-popover-content="#myPopover"><span class="span_line">DEZERT</span></a>
+                <div id="myPopover" class="hide">
+                    <button class="tlacitko2 tlacitka_spodny_panel" style="margin-left: -15px">
                         <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
                     </button>
-                    <button type="submit" name="btn" value="dezert_random" class="tlacitko2 tlacitka_spodny_panel">
+                    <button type="submit" name="btn" value="dezert_random" class="tlacitko2 tlacitka_spodny_panel" style="margin-left: -15px">
                         <span style="font-size: 15px">NAHODNY VYBER</span>
                     </button>
                 </div>
-            </div>   
+            </div>
         </li>
         <li style="margin-left: 42.5px">
             <span style="font-size: 30px;">&#9674;</span>
         </li>
     </ul>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
+<script>
+$(function(){
+    $('[rel="popover"]').popover({
+        container: 'body',
+        html: true,
+        content: function () {
+            var clone = $($(this).data('popover-content')).clone(true).removeClass('hide');
+            return clone;
+        }
+    }).click(function(e) {
+        e.preventDefault();
+    });
+});
+</script>
 </form></body>
