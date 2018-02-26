@@ -17,11 +17,15 @@ def make_session_permanent():
 def home():
     if request.method == 'GET':
         session['kategoria'] = None
-        return render_template('layout.html', html_layout=True)
+        return render_template('layout.html',
+                               html_layout=True
+                               )
 
     elif request.method == 'POST':
         list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
         list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
+        list_popover_kategorie = ['ranajky_popover', 'obed_popover', 'vecera_popover', 'dezert_popover']
+
         if request.form['btn'] == "DOMOV":
             respond = make_response(redirect(url_for('home')))
             return respond
@@ -46,6 +50,14 @@ def home():
             respond = make_response(redirect(url_for('jedlo')))
             return respond
 
+        elif request.form['btn'] in list_popover_kategorie:
+            for a in range(0, len(list_popover_kategorie)):
+                if list_popover_kategorie[a] == request.form['btn']:
+                    respond = make_response(render_template('layout.html',
+                                                            html_layout=True,
+                                                            popover=str(a)))
+                    return respond
+
 
 @app.route('/jedlo', methods=['GET', 'POST'])
 def jedlo():
@@ -60,15 +72,24 @@ def jedlo():
         else:
             aktualne_jedlo_nerandom = jedlo_sql.query.filter_by(attribute=kategoria).all()
             print(len(aktualne_jedlo_nerandom))
-            random_number = random.randint(0, len(aktualne_jedlo_nerandom) + 1)
-            aktualne_jedlo = aktualne_jedlo_nerandom[random_number]
-        respond = make_response(render_template('layout.html', html_jedlo=True, jedlo=aktualne_jedlo.nazov, link=aktualne_jedlo.link))
+            if len(aktualne_jedlo_nerandom) == 1:
+                aktualne_jedlo = aktualne_jedlo_nerandom[0]
+            else:
+                random_number = random.randint(0, len(aktualne_jedlo_nerandom) + 1)
+                aktualne_jedlo = aktualne_jedlo_nerandom[random_number]
+        respond = make_response(render_template('layout.html',
+                                                html_jedlo=True,
+                                                jedlo=aktualne_jedlo.nazov,
+                                                link=aktualne_jedlo.link
+                                                ))
         return respond
 
     elif request.method == 'POST':
         print(request.form)
         list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
         list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
+        list_popover_kategorie = ['ranajky_popover', 'obed_popover', 'vecera_popover', 'dezert_popover']
+
         if request.form['btn'] == "DOMOV":
             respond = make_response(redirect(url_for('home')))
             return respond
@@ -93,6 +114,14 @@ def jedlo():
                     break
             respond = make_response(redirect(url_for('jedlo')))
             return respond
+
+        elif request.form['btn'] in list_popover_kategorie:
+            for a in range(0, len(list_popover_kategorie)):
+                if list_popover_kategorie[a] == request.form['btn']:
+                    respond = make_response(render_template('layout.html',
+                                                            html_layout=True,
+                                                            popover=str(a)))
+                    return respond
 
 
 @app.route('/zoznam', methods=['GET', 'POST'])
