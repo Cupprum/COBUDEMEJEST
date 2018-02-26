@@ -319,12 +319,38 @@ input:focus ~ .highlight {
   width: 250px; 
 }
 
-.popover.top .arrow {
-  display: none;
-}
 
-.popover {
-  height: 120px;
-  width: 220px;
-  border: solid 0px #000000;
+.button_spodnypanel {
+  background: transparent;
+  border: none;
+  display: block;
+  font-size: 20px;
+  outline: none;
+  position: relative;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  padding: 0px;
+}
+.button_spodnypanel:before {
+  content: '';
+  border-bottom: 2px solid #000000;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.button_spodnypanel:hover:before {
+  width: 100%;
+  padding: 0;
+}
+.button_spodnypanel:active {
+  background: #000000;
+  color: #000000;
+  -webkit-transition: none;
+  transition: none;
 }
