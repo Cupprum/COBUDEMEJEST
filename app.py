@@ -24,7 +24,6 @@ def home():
     elif request.method == 'POST':
         list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
         list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
-        list_popover_kategorie = ['ranajky_popover', 'obed_popover', 'vecera_popover', 'dezert_popover']
 
         if request.form['btn'] == "DOMOV":
             respond = make_response(redirect(url_for('home')))
@@ -49,14 +48,6 @@ def home():
                     break
             respond = make_response(redirect(url_for('jedlo')))
             return respond
-
-        elif request.form['btn'] in list_popover_kategorie:
-            for a in range(0, len(list_popover_kategorie)):
-                if list_popover_kategorie[a] == request.form['btn']:
-                    respond = make_response(render_template('layout.html',
-                                                            html_layout=True,
-                                                            popover=str(a)))
-                    return respond
 
 
 @app.route('/jedlo', methods=['GET', 'POST'])
@@ -88,7 +79,6 @@ def jedlo():
         print(request.form)
         list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
         list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
-        list_popover_kategorie = ['ranajky_popover', 'obed_popover', 'vecera_popover', 'dezert_popover']
 
         if request.form['btn'] == "DOMOV":
             respond = make_response(redirect(url_for('home')))
@@ -114,14 +104,6 @@ def jedlo():
                     break
             respond = make_response(redirect(url_for('jedlo')))
             return respond
-
-        elif request.form['btn'] in list_popover_kategorie:
-            for a in range(0, len(list_popover_kategorie)):
-                if list_popover_kategorie[a] == request.form['btn']:
-                    respond = make_response(render_template('layout.html',
-                                                            html_layout=True,
-                                                            popover=str(a)))
-                    return respond
 
 
 @app.route('/zoznam', methods=['GET', 'POST'])

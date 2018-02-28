@@ -330,6 +330,7 @@ input:focus ~ .highlight {
   -webkit-transition: 0.3s;
   transition: 0.3s;
   padding: 0px;
+  text-align: center;
 }
 .button_spodnypanel:before {
   content: '';
@@ -347,10 +348,4 @@ input:focus ~ .highlight {
 .button_spodnypanel:hover:before {
   width: 100%;
   padding: 0;
-}
-.button_spodnypanel:active {
-  background: #000000;
-  color: #000000;
-  -webkit-transition: none;
-  transition: none;
 }

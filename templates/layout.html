@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
+<div onclick="destroy_popover()" style="height: 100%;width: 100%;">
     <div class="wrapper"></div>
     {% if html_layout %}
     <form action="/" method = "post">
@@ -49,22 +50,23 @@
 
     <ul style="position: absolute;bottom: 0%;left: 8%;list-style-type:none">
         <li>
-            {% if popover == '0' %}
-                <div style="position: absolute;margin-top: -110px;margin-left: -155px">
-                    <button class="tlacitko2 tlacitka_spodny_panel">
-                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                    </button>
-                    <button type="submit" name="btn" value="ranajky_random" class="tlacitko2 tlacitka_spodny_panel">
-                        <span style="font-size: 15px">NAHODNY VYBER</span>
-                    </button>
-                </div>
-            {% else %}
-                <span class="dot"></span>
-            {% endif %}
+            <span class="dot"></span>
+            <ul id="ranajky_popover" style="list-style-type:none;">
+                <li>
+                    <div style="position: absolute;margin-top: -110px;margin-left: -200px">
+                        <button class="tlacitko2 tlacitka_spodny_panel">
+                            <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
+                        </button>
+                        <button type="submit" name="btn" value="ranajky_random" class="tlacitko2 tlacitka_spodny_panel">
+                            <span style="font-size: 15px">NAHODNY VYBER</span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
         </li>
-        <li style="margin-left: 7px;">
+        <li>
             <div style="list-style-type:none">
-                <button type="submit" class="button_spodnypanel" name="btn" value="ranajky_popover"><span>RANAJKY</span></button>
+                <span class="button_spodnypanel opener_ranajky">RANAJKY</span>
             </div>
         </li>
         <li style="margin-left: 42.5px">
@@ -74,22 +76,23 @@
 
     <ul style="position: absolute;bottom: 0%;left: 31%;list-style-type:none">
         <li>
-            {% if popover == '1' %}
-                <div style="position: absolute;margin-top: -110px;margin-left: -155px">
-                    <button class="tlacitko2 tlacitka_spodny_panel">
-                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                    </button>
-                    <button type="submit" name="btn" value="obed_random" class="tlacitko2 tlacitka_spodny_panel">
-                        <span style="font-size: 15px">NAHODNY VYBER</span>
-                    </button>
-                </div>
-            {% else %}
-                <span class="dot"></span>
-            {% endif %}
+            <span class="dot"></span>
+            <ul id="obed_popover" style="list-style-type:none;">
+                <li>
+                    <div style="position: absolute;margin-top: -110px;margin-left: -200px">
+                        <button class="tlacitko2 tlacitka_spodny_panel">
+                            <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
+                        </button>
+                        <button type="submit" name="btn" value="obed_random" class="tlacitko2 tlacitka_spodny_panel">
+                            <span style="font-size: 15px">NAHODNY VYBER</span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
         </li>
-        <li style="margin-left: 25px;">
+        <li>
             <div style="list-style-type:none">
-                <button type="submit" class="button_spodnypanel" name="btn" value="obed_popover"><span>OBED</span></button>
+                <span class="button_spodnypanel opener_obed">OBED</span>
             </div>
         </li>
         <li style="margin-left: 42.5px">
@@ -99,22 +102,23 @@
 
     <ul style="position: absolute;bottom: 0%;left: 54%;list-style-type:none">
         <li>
-            {% if popover == '2' %}
-                <div style="position: absolute;margin-top: -110px;margin-left: -155px">
-                    <button class="tlacitko2 tlacitka_spodny_panel">
-                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                    </button>
-                    <button type="submit" name="btn" value="vecera_random" class="tlacitko2 tlacitka_spodny_panel">
-                        <span style="font-size: 15px">NAHODNY VYBER</span>
-                    </button>
-                </div>
-            {% else %}
-                <span class="dot"></span>
-            {% endif %}
+            <span class="dot"></span>
+            <ul id="vecera_popover" style="list-style-type:none;">
+                <li>
+                    <div style="position: absolute;margin-top: -110px;margin-left: -200px">
+                        <button class="tlacitko2 tlacitka_spodny_panel">
+                            <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
+                        </button>
+                        <button type="submit" name="btn" value="vecera_random" class="tlacitko2 tlacitka_spodny_panel">
+                            <span style="font-size: 15px">NAHODNY VYBER</span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
         </li>
-        <li style="margin-left: 12.5px;">
+        <li>
             <div style="list-style-type:none">
-                <button type="submit" class="button_spodnypanel" name="btn" value="vecera_popover"><span>VECERA</span></button>
+                <span class="button_spodnypanel opener_vecera">VECERA</span>
             </div>
         </li>
         <li style="margin-left: 42.5px">
@@ -124,26 +128,79 @@
 
     <ul style="position: absolute;bottom: 0%;left: 77%;list-style-type:none">
         <li>
-            {% if popover == '3' %}
-                <div style="position: absolute;margin-top: -110px;margin-left: -155px">
-                    <button class="tlacitko2 tlacitka_spodny_panel">
-                        <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                    </button>
-                    <button type="submit" name="btn" value="dezert_random" class="tlacitko2 tlacitka_spodny_panel">
-                        <span style="font-size: 15px">NAHODNY VYBER</span>
-                    </button>
-                </div>
-            {% else %}
-                <span class="dot"></span>
-            {% endif %}
+            <span class="dot"></span>
+            <ul id="dezert_popover" style="list-style-type:none;">
+                <li>
+                    <div style="position: absolute;margin-top: -110px;margin-left: -200px">
+                        <button class="tlacitko2 tlacitka_spodny_panel">
+                            <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
+                        </button>
+                        <button type="submit" name="btn" value="dezert_random" class="tlacitko2 tlacitka_spodny_panel">
+                            <span style="font-size: 15px">NAHODNY VYBER</span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
         </li>
-        <li style="margin-left: 15px;">
+        <li>
             <div style="list-style-type:none">
-                <button type="submit" class="button_spodnypanel" name="btn" value="dezert_popover"><span>DEZERT</span></button>
+                <span class="button_spodnypanel opener_dezert">DEZERT</span>
             </div>
         </li>
         <li style="margin-left: 42.5px">
             <span style="font-size: 30px;">&#9674;</span>
         </li>
     </ul>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.opener_ranajky').click(function(e){
+        $('#ranajky_popover').slideDown();
+    });
+            $(window).click(function(e) {
+            var container = $('.opener_ranajky');
+            if (!container.is(e.target) && container.has(e.target).length == 0) {
+                $('#ranajky_popover').slideUp();
+            }
+        });
+});
+
+$(document).ready(function() {
+    $('.opener_obed').click(function(e){
+        $('#obed_popover').slideDown();
+    });
+            $(window).click(function(e) {
+            var container = $('.opener_obed');
+            if (!container.is(e.target) && container.has(e.target).length == 0) {
+                $('#obed_popover').slideUp();
+            }
+        });
+});
+
+$(document).ready(function() {
+    $('.opener_vecera').click(function(e){
+        $('#vecera_popover').slideDown();
+    });
+            $(window).click(function(e) {
+            var container = $('.opener_vecera');
+            if (!container.is(e.target) && container.has(e.target).length == 0) {
+                $('#vecera_popover').slideUp();
+            }
+        });
+});
+
+$(document).ready(function() {
+    $('.opener_dezert').click(function(e){
+        $('#dezert_popover').slideDown();
+    });
+            $(window).click(function(e) {
+            var container = $('.opener_dezert');
+            if (!container.is(e.target) && container.has(e.target).length == 0) {
+                $('#dezert_popover').slideUp();
+            }
+        });
+});
+</script>
 </form></body>
