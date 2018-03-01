@@ -51,7 +51,7 @@
     <ul style="position: absolute;bottom: 0%;left: 8%;list-style-type:none">
         <li>
             <span class="dot"></span>
-            <ul id="ranajky_popover" style="list-style-type:none;">
+            <ul id="ranajky_popover" style="list-style-type:none;" hidden="True">
                 <li>
                     <div style="position: absolute;margin-top: -110px;margin-left: -200px">
                         <button class="tlacitko2 tlacitka_spodny_panel">
@@ -77,7 +77,7 @@
     <ul style="position: absolute;bottom: 0%;left: 31%;list-style-type:none">
         <li>
             <span class="dot"></span>
-            <ul id="obed_popover" style="list-style-type:none;">
+            <ul id="obed_popover" style="list-style-type:none;" hidden="True">
                 <li>
                     <div style="position: absolute;margin-top: -110px;margin-left: -200px">
                         <button class="tlacitko2 tlacitka_spodny_panel">
@@ -103,7 +103,7 @@
     <ul style="position: absolute;bottom: 0%;left: 54%;list-style-type:none">
         <li>
             <span class="dot"></span>
-            <ul id="vecera_popover" style="list-style-type:none;">
+            <ul id="vecera_popover" style="list-style-type:none;" hidden="True">
                 <li>
                     <div style="position: absolute;margin-top: -110px;margin-left: -200px">
                         <button class="tlacitko2 tlacitka_spodny_panel">
@@ -129,7 +129,7 @@
     <ul style="position: absolute;bottom: 0%;left: 77%;list-style-type:none">
         <li>
             <span class="dot"></span>
-            <ul id="dezert_popover" style="list-style-type:none;">
+            <ul id="dezert_popover" style="list-style-type:none;" hidden="True">
                 <li>
                     <div style="position: absolute;margin-top: -110px;margin-left: -200px">
                         <button class="tlacitko2 tlacitka_spodny_panel">
@@ -155,50 +155,61 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+$( document ).ready(function() {
+    $('#ranajky_popover').removeAttr('hidden');
+    $('#obed_popover').removeAttr('hidden');
+    $('#vecera_popover').removeAttr('hidden');
+    $('#dezert_popover').removeAttr('hidden');
+    $('#ranajky_popover').slideUp(0);
+    $('#obed_popover').slideUp(0);
+    $('#vecera_popover').slideUp(0);
+    $('#dezert_popover').slideUp(0);
+});
+
 $(document).ready(function() {
     $('.opener_ranajky').click(function(e){
-        $('#ranajky_popover').slideDown();
+        $('#ranajky_popover').slideDown(0);
     });
             $(window).click(function(e) {
             var container = $('.opener_ranajky');
             if (!container.is(e.target) && container.has(e.target).length == 0) {
-                $('#ranajky_popover').slideUp();
+                $('#ranajky_popover').slideUp(0);
             }
         });
 });
 
 $(document).ready(function() {
     $('.opener_obed').click(function(e){
-        $('#obed_popover').slideDown();
+        $('#obed_popover').slideDown(0);
     });
             $(window).click(function(e) {
             var container = $('.opener_obed');
             if (!container.is(e.target) && container.has(e.target).length == 0) {
-                $('#obed_popover').slideUp();
+                $('#obed_popover').slideUp(0);
             }
         });
 });
 
 $(document).ready(function() {
     $('.opener_vecera').click(function(e){
-        $('#vecera_popover').slideDown();
+        $('#vecera_popover').slideDown(0);
     });
             $(window).click(function(e) {
             var container = $('.opener_vecera');
             if (!container.is(e.target) && container.has(e.target).length == 0) {
-                $('#vecera_popover').slideUp();
+                $('#vecera_popover').slideUp(0);
             }
         });
 });
 
 $(document).ready(function() {
     $('.opener_dezert').click(function(e){
-        $('#dezert_popover').slideDown();
+        $('#dezert_popover').slideDown(0);
     });
             $(window).click(function(e) {
             var container = $('.opener_dezert');
             if (!container.is(e.target) && container.has(e.target).length == 0) {
-                $('#dezert_popover').slideUp();
+                $('#dezert_popover').slideUp(0);
             }
         });
 });
