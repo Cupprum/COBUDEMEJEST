@@ -1,60 +1,46 @@
- <head>
+<head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 </head>
 <body>
     <form action="/zoznam" method = "post">
-    <img src="/static/cooking_final.png" style="height:50px; top: 15px; position: absolute;">
-    <button type="submit" class="span_line" name="btn" value="DOMOV" style="top: 30px;right: 45%;position: absolute;">
-        <span class="span_line">DOMOV</span>
+    <img src="/static/cooking_final.png" style="height:50px; top: 20px; position: absolute;">
+    <button type="submit" class="button_spodnypanel" name="btn" value="DOMOV" style="top: 35px;right: 47.5%;position: absolute;">
+        <span>DOMOV</span>
     </button>
-    <button type="submit" class="span_line" name="btn" value="ONAS" style="top: 30px;right: 35%;position: absolute;">
-        <span class="span_line">O NAS</span>
+    <button type="submit" class="button_spodnypanel" name="btn" value="ONAS" style="top: 35px;right: 35%;position: absolute;">
+        <span>O NAS</span>
     </button>
-    <div class="group" style="position: absolute; top: 15px;right: 0">      
+    <div class="group" style="position: absolute; top: 20px;right: 0%">      
         <input type="text">
         <span class="highlight"></span>
         <span class="bar"></span>
         <label>Vyhladavanie</label>
-    </div>            
+    </div>
 
+    <div class="rectangle" style="top: 75px"></div>
     <div class="rectangle" style="position: absolute; top: 75px"></div>
 
-    <ul style="left: 3%" class="list_style">
-        <li>
-            <span class="rolldown_button" style="right: 20px; top: -7%;padding-left: 100px;padding-right: 100px">RANAJKY</span>
-        </li>
-        {% for a in obed %}
-            <li><button class="span_line jinja2"><span>{{ a }}</span></button></li>
-        {% endfor %}
-    </ul>
+    <button type="submit" name="btn" value="set_category_all" class="rolldown_button" style="width: 67%; top: 12.5%; left: 17%"><span>VSETKO</span></button>
+    <button type="submit" name="btn" value="set_category_ranajky" class="rolldown_button" style="left: 17%"><span>RANAJKY</span></button>
+    <button type="submit" name="btn" value="set_category_obed" class="rolldown_button" style="left: 34%"><span>OBED</span></button>
+    <button type="submit" name="btn" value="set_category_vecera" class="rolldown_button" style="left: 51%"><span>VECERA</span></button>
+    <button type="submit" name="btn" value="set_category_dezert" class="rolldown_button" style="left: 68%"><span>DEZERT</span></button>
+  
+    <span class="covypisuje" style="width: 67%; left: 17%">VSETKY RANAJKY</span>
 
-    <ul style="left: 25.5%" class="list_style">
-        <li>
-            <span class="rolldown_button" style="right: 20px; top: -7%;padding-left: 119px;padding-right: 119px">OBED</span>
-        </li>
-        {% for a in obed %}
-            <li><button class="span_line jinja2"><span>{{ a }}</span></button></li>
+    <div style="width: 31.5%; position: absolute; top: 40%; left: 17%">
+        {% for a in list1 %}
+            <button class="jedla_button" style="text-align: center; margin-top: 20px"><span>{{ a }}</span></button>
         {% endfor %}
-    </ul>
+    </div>
 
-    <ul style="left: 48%" class="list_style">
-        <li>
-            <span class="rolldown_button" style="right: 20px; top: -7%;padding-left: 107.5px;padding-right: 107.5px">VECERA</span>
-        </li>
-        {% for a in obed %}
-            <li><button class="span_line jinja2"><span>{{ a }}</span></button></li>
+    <div style="width: 31.5%; position: absolute; top: 40%; left: 51%">
+        {% for a in list2 %}
+            <button class="jedla_button" style="text-align: center; margin-top: 20px"><span>{{ a }}</span></button>
         {% endfor %}
-    </ul>
+    </div>
 
-    <ul style="left: 70.5%" class="list_style">
-        <li>
-            <span class="rolldown_button" style="right: 20px; top: -7%;padding-left: 109px;padding-right: 109px">DEZERT</span>
-        </li>
-        {% for a in obed %}
-            <li><button class="span_line jinja2"><span>{{ a }}</span></button></li>
-        {% endfor %}
-    </ul>
     </form>
 </body>

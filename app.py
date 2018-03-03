@@ -24,6 +24,16 @@ def home():
     elif request.method == 'POST':
         list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
         list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
+        list_set_category = ['set_category_all',
+                             'set_category_ranajky',
+                             'set_category_obed',
+                             'set_category_vecera',
+                             'set_category_dezert']
+        list_attributov = ['vsetko',
+                           'ranajky',
+                           'obed',
+                           'vecera',
+                           'dezert']
 
         if request.form['btn'] == "DOMOV":
             respond = make_response(redirect(url_for('home')))
@@ -32,13 +42,16 @@ def home():
         elif request.form['btn'] == "ONAS":
             return "nefunguje"
 
+        elif request.form['btn'] in list_set_category:
+            for a in range(0, len(list_attributov)):
+                if request.form['btn'] == list_set_category[a]:
+                    session['zoznam_kategoria'] = list_attributov[a]
+            respond = make_response(redirect(url_for('zoznam')))
+            return respond
+
         elif request.form['btn'] == "nahodny_vyber_vsetko":
             session['kategoria'] = 'everything'
             respond = make_response(redirect(url_for('jedlo')))
-            return respond
-
-        elif request.form['btn'] == "zoznam":
-            respond = make_response(redirect(url_for('zoznam')))
             return respond
 
         elif request.form['btn'] in list_random_kategorie:
@@ -76,9 +89,18 @@ def jedlo():
         return respond
 
     elif request.method == 'POST':
-        print(request.form)
         list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
         list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
+        list_set_category = ['set_category_all',
+                             'set_category_ranajky',
+                             'set_category_obed',
+                             'set_category_vecera',
+                             'set_category_dezert']
+        list_attributov = ['vsetko',
+                           'ranajky',
+                           'obed',
+                           'vecera',
+                           'dezert']
 
         if request.form['btn'] == "DOMOV":
             respond = make_response(redirect(url_for('home')))
@@ -86,50 +108,81 @@ def jedlo():
 
         elif request.form['btn'] == "ONAS":
             return "nefunguje"
+
+        elif request.form['btn'] in list_set_category:
+            for a in range(0, len(list_attributov)):
+                if request.form['btn'] == list_set_category[a]:
+                    session['zoznam_kategoria'] = list_attributov[a]
+            respond = make_response(redirect(url_for('zoznam')))
+            return respond
 
         elif request.form['btn'] == "nahodny_vyber_vsetko":
             session['kategoria'] = 'everything'
             respond = make_response(redirect(url_for('jedlo')))
             return respond
 
-        elif request.form['btn'] == "zoznam":
-            respond = make_response(redirect(url_for('zoznam')))
-            return respond
-
         elif request.form['btn'] in list_random_kategorie:
             for a in range(len(list_random_kategorie)):
-                print(request.form['btn'], list_random_kategorie[a])
                 if request.form['btn'] == list_random_kategorie[a]:
                     session['kategoria'] = list_kategorie[a]
                     break
             respond = make_response(redirect(url_for('jedlo')))
             return respond
 
-
 @app.route('/zoznam', methods=['GET', 'POST'])
 def zoznam():
     if request.method == 'GET':
-        attribute = {'ranajky': [], 'obed': [], 'vecera': [], 'dezert': []}
         list_attributov = ['ranajky', 'obed', 'vecera', 'dezert']
-        for a in list_attributov:
-            searching_for_food = jedlo_sql.query.filter_by(attribute=a).all()
-            for b in searching_for_food:
-                attribute[a].append(b.nazov)
+        kategoria = session.get('zoznam_kategoria')
+
+        if kategoria not in list_attributov:
+            searching_for_food = jedlo_sql.query.all()
+
+        else:
+            for a in list_attributov:
+                if a == kategoria:
+                    searching_for_food = jedlo_sql.query.filter_by(attribute=a).all()
+
+        list1 = []
+        list2 = []
+        y = 0
+        for x in searching_for_food:
+            if y % 2 == 0:
+                list1.append(x.nazov)
+            elif y % 2 == 1:
+                list2.append(x.nazov)
+            y += 1
 
         respond = make_response(render_template('zoznam.html',
-                                ranajky=attribute['ranajky'],
-                                obed=attribute['obed'],
-                                vecera=attribute['vecera'],
-                                dezert=attribute['dezert']))
+                                list1=list1,
+                                list2=list2))
         return respond
 
     elif request.method == 'POST':
+        list_set_category = ['set_category_all',
+                             'set_category_ranajky',
+                             'set_category_obed',
+                             'set_category_vecera',
+                             'set_category_dezert']
+        list_attributov = ['vsetko',
+                           'ranajky',
+                           'obed',
+                           'vecera',
+                           'dezert']
+
         if request.form['btn'] == "DOMOV":
             respond = make_response(redirect(url_for('home')))
             return respond
 
         elif request.form['btn'] == "ONAS":
             return "nefunguje"
+
+        elif request.form['btn'] in list_set_category:
+            for a in range(0, len(list_attributov)):
+                if request.form['btn'] == list_set_category[a]:
+                    session['zoznam_kategoria'] = list_attributov[a]
+            respond = make_response(redirect(url_for('zoznam')))
+            return respond
 
 
 @app.route('/login', methods=['GET', 'POST'])
