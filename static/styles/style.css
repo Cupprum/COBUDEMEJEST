@@ -149,13 +149,11 @@ input:focus ~ .highlight {
   text-align: center;
   cursor: pointer;
   font-size:20px;
-  margin: 0 0 0 100px;
   position: relative;
   background-color: #e60000;
   color: #ffffff;
   border: none;
-  padding: 20px;
-  width: 17.5%;
+  width: 48%;
   height: 50px;
   text-align: center;
   -webkit-transition-duration: 0.4s; /* Safari */
@@ -188,11 +186,10 @@ input:focus ~ .highlight {
   cursor: pointer;
   font-size:20px;
   color: #000000;
-  margin: 0 0 0 100px;
+  width: 48%;
   position: relative;
   background-color: rgba(0,0,0,0);
   border: solid 1px #000000;
-  padding: 20px;
   height: 50px;
   text-align: center;
   -webkit-transition-duration: 0.4s; /* Safari */
@@ -258,14 +255,14 @@ input:focus ~ .highlight {
 }
 
 .jedlo {
-  position: absolute;
-  width: 50%;
-  left: 25%;
-  bottom: 50%;
-  color: #000000;
+  width: 96%;
   border: solid 1px #000000;
+  color: #000000;
   font-family: 'Roboto', sans-serif;
-  font-weight: normal;text-align: center;
+  font-weight: normal;
+  text-align: center;
+  font-size: 50px;
+  margin-left: 2%;
 }
 
 .rolldown_button {
@@ -339,12 +336,6 @@ input:focus ~ .highlight {
 .jinja2 {
   margin-right: -7.5%;
 }
-
-
-.tlacitko_fix_center_panel {
-  width: 250px; 
-}
-
 
 .button_spodnypanel {
   background: transparent;
