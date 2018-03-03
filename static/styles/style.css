@@ -306,6 +306,7 @@ input:focus ~ .highlight {
   text-decoration: none;
   position: static;
   width: 105%;
+  margin-top: 20px;
 }
 
 .jedla_button:hover{

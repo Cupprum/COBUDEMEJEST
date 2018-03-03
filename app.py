@@ -129,6 +129,7 @@ def jedlo():
             respond = make_response(redirect(url_for('jedlo')))
             return respond
 
+
 @app.route('/zoznam', methods=['GET', 'POST'])
 def zoznam():
     if request.method == 'GET':
@@ -148,9 +149,9 @@ def zoznam():
         y = 0
         for x in searching_for_food:
             if y % 2 == 0:
-                list1.append(x.nazov)
+                list1.append(x)
             elif y % 2 == 1:
-                list2.append(x.nazov)
+                list2.append(x)
             y += 1
 
         respond = make_response(render_template('zoznam.html',
@@ -159,6 +160,7 @@ def zoznam():
         return respond
 
     elif request.method == 'POST':
+        print(request.form['btn'])
         list_set_category = ['set_category_all',
                              'set_category_ranajky',
                              'set_category_obed',

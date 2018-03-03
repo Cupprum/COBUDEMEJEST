@@ -32,13 +32,13 @@
 
     <div style="width: 31.5%; position: absolute; top: 40%; left: 17%">
         {% for a in list1 %}
-            <button class="jedla_button" style="text-align: center; margin-top: 20px"><span>{{ a }}</span></button>
+            <a href="{{ a.link }}" target="_blank"><button class="jedla_button" type="button"><span>{{ a.nazov }}</span></button></a>
         {% endfor %}
     </div>
 
     <div style="width: 31.5%; position: absolute; top: 40%; left: 51%">
         {% for a in list2 %}
-            <button class="jedla_button" style="text-align: center; margin-top: 20px"><span>{{ a }}</span></button>
+            <a href="{{ a.link }}" target="_blank"><button class="jedla_button" type="button"><span>{{ a.nazov }}</span></button></a>
         {% endfor %}
     </div>
 
