@@ -2,10 +2,42 @@ from flask import request, render_template, redirect, url_for, session, make_res
 import os
 import json
 import random
-from sql_table_maker import db, app, jedlo_sql, create_func, drop_func, insert_one_func, insert_all_func
+from sql_table_maker import db, app, jedlo_sql, docastne_jedlo_sql, insert_one_func
+from sqlalchemy import exc
 
 
 db.create_all()
+
+
+def whole_db_search():
+    
+    try:
+        pocetjedal = 0
+        jat_all_food = []
+
+        all_food = jedlo_sql.query.all()
+        for a in all_food:
+            jat_all_food.append(a)
+            pocetjedal += 1
+        return jat_all_food
+    
+    except exc.SQLAlchemyError:
+        return None
+
+
+def whole_db_temporary_search():
+    
+    try:
+        pocet_temporary_jedal = 0
+        jat_all_temporaryfood = []
+    
+        all_food = docastne_jedlo_sql.query.all()
+        for a in all_food:
+            jat_all_temporaryfood.append(a)
+            pocet_temporary_jedal += 1
+        return jat_all_temporaryfood
+    except exc.SQLAlchemyError:
+        return None
 
 
 @app.before_request
@@ -15,20 +47,29 @@ def make_session_permanent():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    
     if request.method == 'GET':
         session['kategoria'] = None
         return render_template('layout.html',
-                               html_layout=True
-                               )
+                               html_layout=True)
 
     elif request.method == 'POST':
-        list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
-        list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
+        list_random_kategorie = ['ranajky_random',
+                                 'obed_random',
+                                 'vecera_random',
+                                 'dezert_random']
+
+        list_kategorie = ['ranajky',
+                          'obed',
+                          'vecera',
+                          'dezert']
+
         list_set_category = ['set_category_all',
                              'set_category_ranajky',
                              'set_category_obed',
                              'set_category_vecera',
                              'set_category_dezert']
+
         list_attributov = ['vsetko',
                            'ranajky',
                            'obed',
@@ -39,6 +80,10 @@ def home():
             respond = make_response(redirect(url_for('home')))
             return respond
 
+        elif request.form['btn'] == "PRIDAVANE":
+            respond = make_response(redirect(url_for('pridavanie')))
+            return respond
+
         elif request.form['btn'] == "ONAS":
             return "nefunguje"
 
@@ -46,6 +91,7 @@ def home():
             for a in range(0, len(list_attributov)):
                 if request.form['btn'] == list_set_category[a]:
                     session['zoznam_kategoria'] = list_attributov[a]
+
             respond = make_response(redirect(url_for('zoznam')))
             return respond
 
@@ -59,28 +105,33 @@ def home():
                 if request.form['btn'] == list_random_kategorie[a]:
                     session['kategoria'] = list_kategorie[a]
                     break
+
             respond = make_response(redirect(url_for('jedlo')))
             return respond
 
 
 @app.route('/jedlo', methods=['GET', 'POST'])
 def jedlo():
+
     if request.method == 'GET':
         kategoria = session['kategoria']
-        print('kategoria', kategoria)
+
         if kategoria == 'everything':
             aktualne_jedlo_nerandom = jedlo_sql.query.all()
-            print(len(aktualne_jedlo_nerandom))
             random_number = random.randint(0, len(aktualne_jedlo_nerandom))
             aktualne_jedlo = aktualne_jedlo_nerandom[random_number]
+
         else:
             aktualne_jedlo_nerandom = jedlo_sql.query.filter_by(attribute=kategoria).all()
             print(len(aktualne_jedlo_nerandom))
+
             if len(aktualne_jedlo_nerandom) == 1:
                 aktualne_jedlo = aktualne_jedlo_nerandom[0]
+            
             else:
                 random_number = random.randint(0, len(aktualne_jedlo_nerandom) + 1)
                 aktualne_jedlo = aktualne_jedlo_nerandom[random_number]
+        
         respond = make_response(render_template('layout.html',
                                                 html_jedlo=True,
                                                 jedlo=aktualne_jedlo.nazov,
@@ -89,13 +140,22 @@ def jedlo():
         return respond
 
     elif request.method == 'POST':
-        list_random_kategorie = ['ranajky_random', 'obed_random', 'vecera_random', 'dezert_random']
-        list_kategorie = ['ranajky', 'obed', 'vecera', 'dezert']
+        list_random_kategorie = ['ranajky_random',
+                                 'obed_random',
+                                 'vecera_random',
+                                 'dezert_random']
+        
+        list_kategorie = ['ranajky',
+                          'obed',
+                          'vecera',
+                          'dezert']
+        
         list_set_category = ['set_category_all',
                              'set_category_ranajky',
                              'set_category_obed',
                              'set_category_vecera',
                              'set_category_dezert']
+        
         list_attributov = ['vsetko',
                            'ranajky',
                            'obed',
@@ -132,8 +192,13 @@ def jedlo():
 
 @app.route('/zoznam', methods=['GET', 'POST'])
 def zoznam():
+
     if request.method == 'GET':
-        list_attributov = ['ranajky', 'obed', 'vecera', 'dezert']
+        list_attributov = ['ranajky',
+                           'obed',
+                           'vecera',
+                           'dezert']
+        
         kategoria = session.get('zoznam_kategoria')
 
         if kategoria not in list_attributov:
@@ -147,6 +212,7 @@ def zoznam():
         list1 = []
         list2 = []
         y = 0
+        
         for x in searching_for_food:
             if y % 2 == 0:
                 list1.append(x)
@@ -155,17 +221,18 @@ def zoznam():
             y += 1
 
         respond = make_response(render_template('zoznam.html',
-                                list1=list1,
-                                list2=list2))
+                                                list1=list1,
+                                                list2=list2))
         return respond
 
     elif request.method == 'POST':
-        print(request.form['btn'])
+        
         list_set_category = ['set_category_all',
                              'set_category_ranajky',
                              'set_category_obed',
                              'set_category_vecera',
                              'set_category_dezert']
+        
         list_attributov = ['vsetko',
                            'ranajky',
                            'obed',
@@ -187,13 +254,34 @@ def zoznam():
             return respond
 
 
+@app.route('/pridavanie', methods=['GET', 'POST'])
+def pridavanie():
+    if request.method == 'GET':
+        respond = make_response(render_template('pridavanie.html'))
+        return respond
+
+    elif request.method == 'POST':
+        if request.form['btn'] == 'button_confirm':
+            docastne_nazov = request.form['input_name']
+            docastne_link = request.form['input_link']
+            docastne_kategoria = request.form['select_category']
+            jedlo_pridavane = docastne_jedlo_sql(nazov=docastne_nazov,
+                                                 attribute=docastne_kategoria,
+                                                 link=docastne_link)
+            db.session.add(jedlo_pridavane)
+            db.session.commit()
+            respond = make_response(render_template('layout.html'))
+            return respond
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         respond = render_template('login.html')
         session['password'] = None
         return respond
-    if request.method == 'POST':
+
+    elif request.method == 'POST':
         if request.form['btn'] == 'Submit':
             passcode = request.form['passcode']
             mysecretkey = app.secret_key
@@ -210,55 +298,93 @@ def justadminthings():
     if request.method == 'GET':
         kookie = session.get('password')
         if kookie == app.secret_key:
-            global engine
-            pocetjedal = 0
-            loopdata = []
-            all_food = jedlo_sql.query.all()
-            for a in all_food:
-                loopdata.append(a.nazov)
-                pocetjedal += 1
-            respond = render_template('justadminthings.html', loopdata=loopdata)
+            jat_all_food = whole_db_search()
+            jat_all_temporaryfood = whole_db_temporary_search()
+            print(jat_all_temporaryfood)
+            print(len(jat_all_temporaryfood))
+
+            docastne = ""
+            if len(jat_all_temporaryfood) > 0:
+                docastne = "DOCASTNE"
+
+            respond = render_template('justadminthings.html',
+                                      jat_all_food=jat_all_food,
+                                      jat_all_temporaryfood=jat_all_temporaryfood,
+                                      DOCASTNE=docastne)
             return respond
         else:
             respond = redirect(url_for('home'))
             return respond
 
     elif request.method == 'POST':
-        if request.form['btn'] == 'Potvrdit nove jedla':
-            respond = redirect(url_for('potvrdzovanie'))
+        if request.form['btn'] == 'Vymazat databazu navrhovanych jedal':
+            docastne_jedlo_sql.query.delete()
+            db.session.commit()
+            jat_all_food = whole_db_search()
+            jat_all_temporaryfood = whole_db_temporary_search()
+
+            docastne = ""
+            if len(jat_all_temporaryfood) > 0:
+                docastne = "DOCASTNE"
+
+            respond = render_template('justadminthings.html',
+                                      jat_all_food=jat_all_food,
+                                      jat_all_temporaryfood=jat_all_temporaryfood,
+                                      DOCASTNE=docastne,
+                                      cosatodeje='VSETKO DOCASTNE VYMAZANE')
+
             return respond
 
-        elif request.form['btn'] == 'Pridat vsetko z xml':
-            insert_all_func()
-            respond = render_template('justadminthings.html', cosatodeje='PREPISANE DO DATABAZY')
+        elif request.form['btn'][:8] == 'all_food':
+            jedlo_ktore_chcem_vymazat = jedlo_sql.query.filter_by(nazov=request.form['btn'][8:]).first()
+            nazov_jedlo_ktore_chcem_vymazat = jedlo_ktore_chcem_vymazat.nazov
+            db.session.delete(jedlo_ktore_chcem_vymazat)
+            db.session.commit()
+            jat_all_food = whole_db_search()
+            jat_all_temporaryfood = whole_db_temporary_search()
+
+            docastne = ""
+            if len(jat_all_temporaryfood) > 0:
+                docastne = "DOCASTNE"
+
+            respond = render_template('justadminthings.html',
+                                      jat_all_food=jat_all_food,
+                                      jat_all_temporaryfood=jat_all_temporaryfood,
+                                      DOCASTNE=docastne,
+                                      cosatodeje=('USPESNE VYMAZANE : ' + nazov_jedlo_ktore_chcem_vymazat))
+
             return respond
 
-        elif request.form['btn'] == 'Vymazat vsetko z databazy':
-            drop_func()
-            respond = render_template('justadminthings.html', cosatodeje='V DATABAZE SA NIC NENACHADZA')
-            return respond
+        elif request.form['btn'][:8] == 'temporar':
+            print(request.form['btn'][8:12])
+            if request.form['btn'][8:12] == '_add':
+                jedlo_ktore_chcem_pridat = docastne_jedlo_sql.query.filter_by(nazov=request.form['btn'][12:]).first()
+                nazov_jedlo = jedlo_ktore_chcem_pridat.nazov
+                attribute_jedlo = jedlo_ktore_chcem_pridat.attribute
+                link_jedlo = jedlo_ktore_chcem_pridat.attribute
+                insert_one_func(nazov_jedlo, attribute_jedlo, link_jedlo)
+                cosatodeje = f"{nazov_jedlo} pridane do databazy"
 
-        elif request.form['btn'] == 'Vymaz jedno':
-            dlzka = None
-            nazov = str(request.form['txt'])
-            print(nazov, '|||||||||||||||||||')
-            engine.execute('''SELECT * FROM jedlo WHERE nazov = '%s' ''' % (nazov,))
-            result_set = engine.fetchall()
-            for r in result_set:
-                print(r)
-                dlzka = 'something'
-            if dlzka is None:
-                respond = render_template('justadminthings.html', cosatodeje='NENACHADZA SA V DATABAZE')
-                return respond
+            elif request.form['btn'][8:12] == '_del':
+                cosatodeje = f"{nazov_jedlo} vymazane z docastnej databazy"
 
-            rawformat = '''DELETE FROM jedlo WHERE nazov = %s;'''
-            engine.execute(rawformat, (nazov,))
-            respond = render_template('justadminthings.html', cosatodeje='USPESNE VYMAZANE')
-            return respond
+            jedlo_ktore_chcem_vymazat = docastne_jedlo_sql.query.filter_by(nazov=request.form['btn'][12:]).first()
+            nazov_jedlo_ktore_chcem_vymazat = jedlo_ktore_chcem_vymazat.nazov
+            db.session.delete(jedlo_ktore_chcem_vymazat)
+            db.session.commit()
+            jat_all_food = whole_db_search()
+            jat_all_temporaryfood = whole_db_temporary_search()
 
-        elif request.form['btn'] == 'Vymazat vsetko z databazy pridanych jedal':
-            engine.execute('''DROP TABLE neoverenejedlo''')
-            respond = render_template('justadminthings.html', cosatodeje='V DATABAZE S NAVRHOVANYMI JEDLAMI SA NIC NENACHADZA')
+            docastne = ""
+            if len(jat_all_temporaryfood) > 0:
+                docastne = "DOCASTNE"
+
+            respond = render_template('justadminthings.html',
+                                      jat_all_food=jat_all_food,
+                                      jat_all_temporaryfood=jat_all_temporaryfood,
+                                      DOCASTNE=docastne,
+                                      cosatodeje=cosatodeje)
+
             return respond
 
 
@@ -275,7 +401,7 @@ def vsetkojedlo():
         for row in engine:
             list_jedal.append(row[0])
         list_jedal.sort()
-        respond = render_template('vsetky.html', loopdata=list_jedal)
+        respond = render_template('vsetky.html', jat_all_food=list_jedal)
         return respond
     if request.method == 'POST':
         hladavdatabaze = '''SELECT * FROM jedlo WHERE nazov=%s'''

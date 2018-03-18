@@ -20,6 +20,13 @@ class jedlo_sql(db.Model):
     link = db.Column(db.String(256))
 
 
+class docastne_jedlo_sql(db.Model):
+    __tablename__ = 'docastne_jedlo_sql'
+    nazov = db.Column(db.String(256), primary_key=True)
+    attribute = db.Column(db.String(256))
+    link = db.Column(db.String(256))
+
+
 tree = ET.parse('jedlo.xml')
 root = tree.getroot()
 
@@ -31,8 +38,15 @@ def create_func():
 def drop_func():
     db.drop_all()
 
+def insert_one_func(nazov, attribute, link):
+    jedlo_pridavane = jedlo_sql(nazov=nazov,
+                                attribute=attribute,
+                                link=link
+                                )
+    db.session.add(jedlo_pridavane)
+    db.session.commit()
 
-def insert_one_func():
+def insert_manual_one_func():
     db.create_all()
     input_nazov = input('nazov : ')
     input_attribute = input('attribute : ')

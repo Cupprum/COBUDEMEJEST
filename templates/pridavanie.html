@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+<body style="height: 90%">
+  <form action="/pridavanie" method = "post">
+    <center>
+      <h1>Vase kulinarske zazitky.</h1>
+      <div style="position: static;width: 50%; left: 25%">
+        <p style="font-size: 20px; display: inline-block;">Nazov</p>
+        <input type="text" name="input_name" style="margin-left: 40px;display: inline-block; width: 300px">
+      </div>
+      <div style="position: static;width: 50%; left: 25%">
+        <p style="font-size: 20px; display: inline-block;">Link</p>
+        <input type="text" name="input_link" style="margin-left: 60px;display: inline-block; width: 300px">
+      </div>
+      <div style="margin-left: 100px">
+        <select style="font-size: 20px; height: 50px; width: 155px; border: 1px solid #000; background-color: #fff" name="select_category">
+          <option value="None">Kategoria</option>
+          <option value="ranajky">Ranajky</option>
+          <option value="obed">Obed</option>
+          <option value="vecera">Vecera</option>
+          <option value="dezert">Dezert</option>
+        </select>
+        <button type="submit" class="tlacitko" name="btn" value="button_confirm" style="width: 155px;">
+          <div>Potvrdit</div>
+        </button>
+      </div>
+    </center>
+  </form>
+</body>
+</html>

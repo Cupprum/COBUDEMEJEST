@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
-<body bgcolor="ffffff">
-    <center>
-        <form action="/justadminthings" method = "post">
-          <h1>Just admin things</h1>
-          <h1>{{ cosatodeje }}</h1>
-          <input type="submit" name="btn" value="Potvrdit nove jedla" class="button"/>
-          <br><br>
-          <input type="submit" name="btn" value="Pridat vsetko z xml" class="button"/>
-          <br><br>
-          <input type="submit" name="btn" value="Vymazat vsetko z databazy" class="button"/>
-          <br><br>
-          <input type="submit" name="btn" value="Vymazat vsetko z databazy pridanych jedal" class="button"/>
-          <br><br>
-          <input type="text" name="txt">
-          <input type="submit" name="btn" value="Vymaz jedno" class="button"/>
-          {% for x in loopdata %}
-            <p>{{ x }}</p>
-          {% endfor %}
-        </form>
-    </center>
+<body>
+  <center>
+    <form action="/justadminthings" method = "post">
+      <h1>Just admin things</h1>
+      <h1>{{ cosatodeje }}</h1>
+
+      <input type="submit" name="btn" class="tlacitko2" style="width: 50%" value="Vymazat databazu navrhovanych jedal" class="button"/>
+
+      <br>
+      <h1>{{ DOCASTNE }}</h1>
+      
+      {% for a in jat_all_temporaryfood %}
+        <br>
+        <div style="border: 1px solid #000; width: 50%">
+          <p><b style="text-align: center;">{{ a.nazov }}</b></p>
+
+          <button type="submit" style="width: 80px; height: 40px; float: left; margin-top: -50px; position: relative; border: none; padding: 0px;" class="button tlacitko2" name="btn" value="temporar_add{{ a.nazov }}">PRIDAT</button>
+          
+          <button type="submit" style="width: 80px; height: 40px; float: right; margin-top: -50px; position: relative; border: none; padding: 0px;" class="button tlacitko2" name="btn" value="temporar_del{{ a.nazov }}">DELETE</button>
+          <br>
+          <p>{{ a.attribute }}</p>
+          <a href="{{ a.link }}" target="_blank" style="color: #000"><p>{{ a.link }}</p></a>
+        </div>
+      {% endfor %}
+
+      <br>
+      <h1>AKTUALNE V DATABAZE</h1>
+
+      {% for b in jat_all_food %}
+        <br>
+        <div style="border: 1px solid #000; width: 50%">
+          <p><b style="text-align: center;">{{ b.nazov }}</b></p>
+          <button type="submit" style="width: 80px; height: 40px; float: right; margin-top: -50px; position: relative; border: none; padding: 0px;" class="button tlacitko2" name="btn" value="all_food{{ b.nazov }}">DELETE</button>
+          <br>
+          <p>{{ b.attribute }}</p>
+          <a href="{{ b.link }}" target="_blank" style="color: #000"><p>{{ b.link }}</p></a>
+        </div>
+      {% endfor %}
+      <br>
+    </form>
+  </center>
 </body>
 </html>

@@ -42,14 +42,14 @@ div, body{
 
 /* Search box ------------------------------- */
 .group        {
-  position:relative; 
+  position:absolute; 
   margin-bottom:45px; 
 }
 input         {
   font-size:18px;
   padding:10px 10px 10px 5px;
   display:block;
-  width:90%;
+  width:80%;
   border:none;
   border-bottom:1px solid #757575;
 }
@@ -74,7 +74,7 @@ input:focus ~ label{
   color:#e60000;
 }
 
-.bar  { position:relative; display:block; width:90%; }
+.bar  { position:relative; display:block; width:80%; }
 .bar:before, .bar:after   {
   content:'';
   height:2px; 
@@ -364,6 +364,41 @@ input:focus ~ .highlight {
   transition: 0.3s;
 }
 .button_spodnypanel:hover:before {
+  width: 100%;
+  padding: 0;
+}
+
+ul#horizontal_list li {
+  display: inline;
+}
+
+
+.button_hornypanel {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  outline: none;
+  position: relative;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  padding: 0px;
+  text-align: center;
+  color: #000000
+}
+.button_hornypanel:before {
+  content: '';
+  border-bottom: 2px solid #000000;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.button_hornypanel:hover:before {
   width: 100%;
   padding: 0;
 }

@@ -1,4 +1,4 @@
-from sql_table_maker import jedlo_sql, create_func, drop_func, insert_one_func, insert_all_func
+from sql_table_maker import jedlo_sql, create_func, drop_func, insert_manual_one_func, insert_all_func
 
 
 print('create, drop, insert_all, insert_one')
@@ -10,8 +10,8 @@ if what_to_do == 'create':
 elif what_to_do == 'drop':
     drop_func()
 
-elif what_to_do == 'insert_one':
-    insert_one_func()
+elif what_to_do == 'insert_manual_one':
+    insert_manual_one_func()
 
 elif what_to_do == 'insert_all':
     insert_all_func()
