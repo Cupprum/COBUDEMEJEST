@@ -47,7 +47,6 @@ def make_session_permanent():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    
     if request.method == 'GET':
         session['kategoria'] = None
         return render_template('layout.html',
@@ -257,7 +256,8 @@ def zoznam():
 @app.route('/pridavanie', methods=['GET', 'POST'])
 def pridavanie():
     if request.method == 'GET':
-        respond = make_response(render_template('pridavanie.html'))
+        respond = make_response(render_template('pridavanie.html',
+                                                 cosadeje="Vase kulinarske zazitky."))
         return respond
 
     elif request.method == 'POST':
@@ -265,12 +265,21 @@ def pridavanie():
             docastne_nazov = request.form['input_name']
             docastne_link = request.form['input_link']
             docastne_kategoria = request.form['select_category']
+
+            len_nazov = len(docastne_nazov)
+            len_link = len(docastne_link)
+            print(f"{len_nazov} {len_link} {docastne_kategoria}")
+            if len_nazov == 0 or len_link == 0 or docastne_kategoria == "None":
+                respond = make_response(render_template('pridavanie.html',
+                                                         cosadeje="Nezadal si to spravne"))
+                return respond
+
             jedlo_pridavane = docastne_jedlo_sql(nazov=docastne_nazov,
                                                  attribute=docastne_kategoria,
                                                  link=docastne_link)
             db.session.add(jedlo_pridavane)
             db.session.commit()
-            respond = make_response(render_template('layout.html'))
+            respond = make_response(redirect(url_for('home')))
             return respond
 
 
@@ -366,6 +375,8 @@ def justadminthings():
                 cosatodeje = f"{nazov_jedlo} pridane do databazy"
 
             elif request.form['btn'][8:12] == '_del':
+                jedlo_ktore_chcem_pridat = docastne_jedlo_sql.query.filter_by(nazov=request.form['btn'][12:]).first()
+                nazov_jedlo = jedlo_ktore_chcem_pridat.nazov
                 cosatodeje = f"{nazov_jedlo} vymazane z docastnej databazy"
 
             jedlo_ktore_chcem_vymazat = docastne_jedlo_sql.query.filter_by(nazov=request.form['btn'][12:]).first()
