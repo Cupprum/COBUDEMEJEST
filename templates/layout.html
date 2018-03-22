@@ -13,59 +13,56 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
-<div onclick="destroy_popover()" style="height: 100%;width: 100%;">
-    {% if html_layout %}
-    <form action="/" method = "post">
-    {% endif %}
-    {% if html_jedlo %}
-    <form action="/jedlo" method = "post">
-    {% endif %}
-
-    <div class="wrapper"></div>
-
-    <ul id="horizontal_list" style="position: absolute;top: 1%; width: 100%">
-        <li>
-            <img src="/static/cooking_final.png" style="width: 20%; margin-top: -0.5%">
-        </li>
-        <li style="margin-left: 30%">
-            <button type="submit" class="button_hornypanel" name="btn" value="DOMOV">
-                <span>DOMOV</span>
-            </button>
-        </li>
-        <li style="margin-left: 10%">
-            <button type="submit" class="button_hornypanel" name="btn" value="PRIDAVANE">
-                <span>PRIDAVANIE JEDAL</span>
-            </button>
-        </li>
-        <li style="margin-left: 10%">
-            <button type="submit" class="button_hornypanel" name="btn" value="ONAS">
-                <span>O NAS</span>
-            </button>
-        </li>
-        <br>
-        <li class="rectangle" style="width: 100%; left: 0"></li>
-    </ul>
-
-    <div style="position: absolute; text-align: center;bottom: 40%;width: 60%; left: 20%">
-        {% if html_jedlo %}
-            <a href="{{ link }}" target="_blank"><h1 class="jedlo" style="border-width: 2px;height: 175px;"><br>{{ jedlo }}</h1></a>
-        {% endif %}
-
+    <div onclick="destroy_popover()" style="height: 100%;width: 100%">
         {% if html_layout %}
-            <img src="/static/cooking_final.png" style="width: 100%">
+        <form action="/" method = "post">
         {% endif %}
-    
-        <button type="submit" class="tlacitko2" name="btn" value="set_category_all" style="border-width: 2px;">
-            <div style="">ZOZNAM JEDAL</div>
-        </button>
-        <button type="submit" class="tlacitko" name="btn" value="nahodny_vyber_vsetko">
-            <div style="">NAHODNY VYBER</div>
-        </button>
-    </div>
+        {% if html_jedlo %}
+        <form action="/jedlo" method = "post">
+        {% endif %}
 
-    <div class="rectangle" style="height: 230px; bottom: 0%"></div>
+            <ul id="horizontal_list" style="position: relative; width: 100%; height: 10%">
+                <li>
+                    <img src="/static/cooking_final.png" style="width: 20vw;margin-left: -30px; margin-top: -2vw;">
+                </li>
+                <li style="margin-left: 25vw">
+                    <button type="submit" class="button_hornypanel" name="btn" value="DOMOV">
+                        <span style="font-size: 1.75vw">DOMOV</span>
+                    </button>
+                </li>
+                <li style="margin-left: 15vw">
+                    <button type="submit" class="button_hornypanel" name="btn" value="PRIDAVANE">
+                        <span style="font-size: 1.75vw">PRIDAVANIE JEDAL</span>
+                    </button>
+                </li>
+                <br>
+                <li class="rectangle" style="width: 100%; left: 0"></li>
+            </ul>
 
-    <ul style="position: absolute;bottom: 0%;left: 9%;list-style-type:none">
+            <div style="position: relative; text-align: center; margin-top: 10%">
+                {% if html_jedlo %}
+                    <a href="{{ link }}" target="_blank"><h1 class="jedlo" style="border-width: 2px;height: 15%; width: 77%; margin-left: 11.5%; font-size: 4vw">
+                    <hr style="height:8%; visibility:hidden;" />
+                    {{ jedlo }}</h1></a>
+                {% endif %}
+
+                {% if html_layout %}
+                    <img src="/static/cooking_final.png" style="width: 80%">
+                {% endif %}
+            
+                <button type="submit" class="tlacitko2" name="btn" value="set_category_all" style="border-width: 2px;width: 38.3%; height: 6vh">
+                    <div style="font-size: 1.75vw">ZOZNAM JEDAL</div>
+                </button>
+                <button type="submit" class="tlacitko" name="btn" value="nahodny_vyber_vsetko" style="width: 38.3%; height: 6vh">
+                    <div style="font-size: 1.75vw">NAHODNY VYBER</div>
+                </button>
+            </div>
+
+            <div class="rectangle" style="height: 25vh; bottom: 0"></div>
+
+
+            
+    <ul style="position: absolute; bottom: 0%; margin-left: 9%;list-style-type:none; text-align: center;">
         <li>
             <span class="dot"></span>
             <ul id="ranajky_popover" style="list-style-type:none;" hidden="True">
@@ -83,15 +80,15 @@
         </li>
         <li>
             <div style="list-style-type:none">
-                <span class="button_spodnypanel opener_ranajky">RANAJKY</span>
+                <span class="button_spodnypanel opener_ranajky" style="font-size: 1.5vw">RANAJKY</span>
             </div>
         </li>
-        <li style="margin-left: 42.5px">
-            <span style="font-size: 30px;">&#9674;</span>
+        <li>
+            <span style="font-size: 2vw;">&#9674;</span>
         </li>
     </ul>
 
-    <ul style="position: absolute;bottom: 0%;left: 32%;list-style-type:none">
+    <ul style="position: absolute;bottom: 0%;left: 32%;list-style-type:none; text-align: center;">
         <li>
             <span class="dot"></span>
             <ul id="obed_popover" style="list-style-type:none;" hidden="True">
@@ -109,15 +106,15 @@
         </li>
         <li>
             <div style="list-style-type:none">
-                <span class="button_spodnypanel opener_obed">OBED</span>
+                <span class="button_spodnypanel opener_obed" style="font-size: 1.5vw">OBED</span>
             </div>
         </li>
-        <li style="margin-left: 42.5px">
-            <span style="font-size: 30px;">&#9674;</span>
+        <li>
+            <span style="font-size: 2vw;">&#9674;</span>
         </li>
     </ul>
 
-    <ul style="position: absolute;bottom: 0%;left: 55%;list-style-type:none">
+    <ul style="position: absolute;bottom: 0%;left: 55%;list-style-type:none; text-align: center;">
         <li>
             <span class="dot"></span>
             <ul id="vecera_popover" style="list-style-type:none;" hidden="True">
@@ -135,15 +132,15 @@
         </li>
         <li>
             <div style="list-style-type:none">
-                <span class="button_spodnypanel opener_vecera">VECERA</span>
+                <span class="button_spodnypanel opener_vecera" style="font-size: 1.5vw">VECERA</span>
             </div>
         </li>
-        <li style="margin-left: 42.5px">
-            <span style="font-size: 30px;">&#9674;</span>
+        <li>
+            <span style="font-size: 2vw;">&#9674;</span>
         </li>
     </ul>
 
-    <ul style="position: absolute;bottom: 0%;left: 78%;list-style-type:none">
+    <ul style="position: absolute;bottom: 0%;left: 78%;list-style-type:none; text-align: center;">
         <li>
             <span class="dot"></span>
             <ul id="dezert_popover" style="list-style-type:none;" hidden="True">
@@ -161,11 +158,11 @@
         </li>
         <li>
             <div style="list-style-type:none">
-                <span class="button_spodnypanel opener_dezert">DEZERT</span>
+                <span class="button_spodnypanel opener_dezert" style="font-size: 1.5vw">DEZERT</span>
             </div>
         </li>
-        <li style="margin-left: 42.5px">
-            <span style="font-size: 30px;">&#9674;</span>
+        <li>
+            <span style="font-size: 2vw;">&#9674;</span>
         </li>
     </ul>
 
@@ -231,4 +228,12 @@ $(document).ready(function() {
         });
 });
 </script>
-</form></body>
+
+
+
+
+
+
+        </form>
+    </div>
+</body>

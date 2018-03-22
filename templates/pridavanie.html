@@ -5,33 +5,61 @@
   <link rel="icon" type="image/png" href="/static/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="/static/favicon-16x16.png" sizes="16x16" />
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+
 </head>
 <body style="height: 90%">
   <form action="/pridavanie" method = "post">
-    <center>
+    <ul id="horizontal_list" style="position: static;margin-top: 1%; width: 100%">
+        <li>
+            <img src="/static/cooking_final.png" style="width: 20%; margin-top: -0.5%">
+        </li>
+        <li style="margin-left: 30%">
+            <button type="submit" class="button_hornypanel" name="btn" value="DOMOV">
+                <span>DOMOV</span>
+            </button>
+        </li>
+        <li style="margin-left: 10%">
+            <button type="submit" class="button_hornypanel" name="btn" value="PRIDAVANE">
+                <span>PRIDAVANIE JEDAL</span>
+            </button>
+        </li>
+        <li style="margin-left: 10%">
+            <button type="submit" class="button_hornypanel" name="btn" value="ONAS">
+                <span>O NAS</span>
+            </button>
+        </li>
+        <br>
+        <li class="rectangle" style="width: 100%; left: 0"></li>
+    </ul>
+    </div>
+    <div style="text-align: center; position: static; height: 50%">
+      <br><br>
       <h1>{{ cosadeje }}</h1>
-      <div style="position: static;width: 50%; left: 25%">
-        <p style="font-size: 20px; display: inline-block;">Nazov</p>
-        <input type="text" name="input_name" style="margin-left: 40px;display: inline-block; width: 300px">
-      </div>
-      <div style="position: static;width: 50%; left: 25%">
-        <p style="font-size: 20px; display: inline-block;">Link</p>
-        <input type="text" name="input_link" style="margin-left: 60px;display: inline-block; width: 300px">
-      </div>
-      <div style="margin-left: 100px">
-        <select style="font-size: 20px; height: 50px; width: 155px; border: 1px solid #000; background-color: #fff" name="select_category">
-          <option value="None">Kategoria</option>
-          <option value="ranajky">Ranajky</option>
-          <option value="obed">Obed</option>
-          <option value="vecera">Vecera</option>
-          <option value="dezert">Dezert</option>
-        </select>
-        <button type="submit" class="tlacitko" name="btn" value="button_confirm" style="width: 155px;">
-          <div>Potvrdit</div>
-        </button>
-      </div>
-    </center>
+      <br>
+      <input type="text" placeholder="Nazov" name="input_name" style="width: 30%; height: 40px; font-size: 20px;">
+      <br>
+      <input type="text" placeholder="Link" name="input_link" style="width: 30%; height: 40px; font-size: 20px; margin-top: 15px">
+      <br>
+      <select style="font-size: 20px; height: 40px; width: 30%; border: 1px solid #000; background-color: #fff; margin-top: 15px" name="select_category";>
+        <option value="None">Kategoria</option>
+        <option value="ranajky">Ranajky</option>
+        <option value="obed">Obed</option>
+        <option value="vecera">Vecera</option>
+        <option value="dezert">Dezert</option>
+      </select>
+      <br>
+      <button type="submit" class="tlacitko" name="btn" value="button_confirm" style="width: 30%; margin-top: 15px">
+        <div>Potvrdit</div>
+      </button>
+    </div>
+
   </form>
 </body>
 </html>

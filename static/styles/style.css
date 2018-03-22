@@ -19,6 +19,7 @@ span{
 html, body{
   height: 100%;
 }
+
 body { 
       background-image: url("/static/bg.jpg") ;
       background-position: center center;
@@ -40,93 +41,6 @@ div, body{
   width: 100%; 
 }
 
-/* Search box ------------------------------- */
-.group        {
-  position:absolute; 
-  margin-bottom:45px; 
-}
-input         {
-  font-size:18px;
-  padding:10px 10px 10px 5px;
-  display:block;
-  width:80%;
-  border:none;
-  border-bottom:1px solid #757575;
-}
-input:focus     { outline:none; }
-
-label          {
-  color:#999; 
-  font-size:18px;
-  font-weight:normal;
-  position:absolute;
-  pointer-events:none;
-  left:5px;
-  top:10px;
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
-  -webkit-transition:0.2s ease all;
-}
-
-input:focus ~ label{
-  top:-20px;
-  font-size:14px;
-  color:#e60000;
-}
-
-.bar  { position:relative; display:block; width:80%; }
-.bar:before, .bar:after   {
-  content:'';
-  height:2px; 
-  width:0;
-  bottom:1px; 
-  position:absolute;
-  background:#e60000; 
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
-  -webkit-transition:0.2s ease all;
-}
-.bar:before {
-  left:50%;
-}
-.bar:after {
-  right:50%; 
-}
-
-input:focus ~ .bar:before, input:focus ~ .bar:after {
-  width:50%;
-}
-
-.highlight {
-  position:absolute;
-  height:60%;   
-  width:100px; 
-  top:25%; 
-  left:0;
-  pointer-events:none;
-  opacity:0.5;
-}
-
-input:focus ~ .highlight {
-  -webkit-animation:inputHighlighter 0.3s ease;
-  -moz-animation:inputHighlighter 0.3s ease;
-  animation:inputHighlighter 0.3s ease;
-}
-
-@-webkit-keyframes inputHighlighter {
-  from { background:#e60000; }
-  to  { width:0; background:transparent; }
-}
-@-moz-keyframes inputHighlighter {
-  from { background:#e60000; }
-  to  { width:0; background:transparent; }
-}
-@keyframes inputHighlighter {
-  from { background:#e60000; }
-  to  { width:0; background:transparent; }
-}
-
-
 /* white line */
 .rectangle{
   position: absolute;
@@ -137,8 +51,8 @@ input:focus ~ .highlight {
 }
 
 .dot {
-  height: 100px;
-  width: 100px;
+  height: 5vw;
+  width: 5vw;
   background-color: #bfbfbf;
   border-radius: 50%;
   display: inline-block;
@@ -149,17 +63,12 @@ input:focus ~ .highlight {
   text-align: center;
   cursor: pointer;
   font-size:20px;
-  position: relative;
+  position: static;
   background-color: #e60000;
   color: #ffffff;
   border: none;
-  width: 48%;
   height: 50px;
   text-align: center;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  text-decoration: none;
-  overflow: hidden;
 }
 
 .tlacitko:hover{
@@ -168,25 +77,11 @@ input:focus ~ .highlight {
   color:#000;
 }
 
-.tlacitko:after {
-  content: "";
-  background: #f1c40f;
-  display: block;
-  position: absolute;
-  padding-top: 300%;
-  padding-left: 350%;
-  margin-left: -20px !important;
-  margin-top: -120%;
-  opacity: 0;
-  transition: all 0.8s
-}
-
 .tlacitko2 {
   text-align: center;
   cursor: pointer;
   font-size:20px;
   color: #000000;
-  width: 48%;
   position: relative;
   background-color: rgba(0,0,0,0);
   border: solid 1px #000000;
@@ -340,22 +235,21 @@ input:focus ~ .highlight {
 .button_spodnypanel {
   background: transparent;
   border: none;
-  display: block;
-  font-size: 20px;
+  font-size: 2.5vw
   outline: none;
   position: relative;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  padding: 0px;
+  padding: 10px;
   text-align: center;
-  color: #000000
+  color: #000000;
 }
 .button_spodnypanel:before {
   content: '';
-  border-bottom: 2px solid #000000;
-  padding: 10px;
+  border-bottom: 0.1vw solid #000000;
+  padding: 0.5vw;
   position: absolute;
-  bottom: 0;
+  bottom: 0.75vw;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -376,21 +270,22 @@ ul#horizontal_list li {
 .button_hornypanel {
   background: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 2.5vw
   outline: none;
   position: relative;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  padding: 0px;
+  padding: 10px;
   text-align: center;
-  color: #000000
+  color: #000000;
+  margin-top: 1.5vw;
 }
 .button_hornypanel:before {
   content: '';
-  border-bottom: 2px solid #000000;
-  padding: 10px;
+  border-bottom: 0.1vw solid #000000;
+  padding: 0.5vw;
   position: absolute;
-  bottom: 0;
+  bottom: 0.75vw;
   left: 0;
   right: 0;
   margin: 0 auto;
