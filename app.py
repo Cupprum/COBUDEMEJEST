@@ -71,6 +71,9 @@ def home():
                         'vecera',
                         'dezert']
 
+
+
+
       if request.form['btn'] == "DOMOV":
           respond = make_response(redirect(url_for('home')))
           return respond
@@ -81,6 +84,12 @@ def home():
 
       elif request.form['btn'] == "ONAS":
           return "nefunguje"
+
+      elif request.form['btn'] == "set_category_all":
+          session['zoznam_kategoria'] = 'vsetko'
+
+          respond = make_response(redirect(url_for('zoznam')))
+          return respond
 
       elif request.form['btn'] == "nahodny_vyber_vsetko":
           session['kategoria'] = 'everything'
