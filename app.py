@@ -54,6 +54,9 @@ def home():
   print(f"pocitac {user_agent.is_pc}")
   if request.method == 'GET':
       session['kategoria'] = None
+      if user_agent.is_mobile is True:
+        return render_template('mobile_templates/layout.html',
+                             html_layout=True)  
       return render_template('layout.html',
                              html_layout=True)
 
