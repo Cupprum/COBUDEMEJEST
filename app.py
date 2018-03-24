@@ -4,6 +4,7 @@ import json
 import random
 from sql_table_maker import db, app, jedlo_sql, docastne_jedlo_sql, insert_one_func
 from sqlalchemy import exc
+from user_agents import parse
 
 
 db.create_all()
@@ -47,46 +48,50 @@ def make_session_permanent():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    if request.method == 'GET':
-        session['kategoria'] = None
-        return render_template('layout.html',
-                               html_layout=True)
+  print(request.headers.get('User-Agent'))
+  user_agent = parse(request.headers.get('User-Agent'))
+  print(f"telefon {user_agent.is_mobile}")
+  print(f"pocitac {user_agent.is_pc}")
+  if request.method == 'GET':
+      session['kategoria'] = None
+      return render_template('layout.html',
+                             html_layout=True)
 
-    elif request.method == 'POST':
-        list_random_kategorie = ['ranajky_random',
-                                 'obed_random',
-                                 'vecera_random',
-                                 'dezert_random']
+  elif request.method == 'POST':
+      list_random_kategorie = ['ranajky_random',
+                               'obed_random',
+                               'vecera_random',
+                               'dezert_random']
 
-        list_kategorie = ['ranajky',
-                          'obed',
-                          'vecera',
-                          'dezert']
+      list_kategorie = ['ranajky',
+                        'obed',
+                        'vecera',
+                        'dezert']
 
-        if request.form['btn'] == "DOMOV":
-            respond = make_response(redirect(url_for('home')))
-            return respond
+      if request.form['btn'] == "DOMOV":
+          respond = make_response(redirect(url_for('home')))
+          return respond
 
-        elif request.form['btn'] == "PRIDAVANE":
-            respond = make_response(redirect(url_for('pridavanie')))
-            return respond
+      elif request.form['btn'] == "PRIDAVANE":
+          respond = make_response(redirect(url_for('pridavanie')))
+          return respond
 
-        elif request.form['btn'] == "ONAS":
-            return "nefunguje"
+      elif request.form['btn'] == "ONAS":
+          return "nefunguje"
 
-        elif request.form['btn'] == "nahodny_vyber_vsetko":
-            session['kategoria'] = 'everything'
-            respond = make_response(redirect(url_for('jedlo')))
-            return respond
+      elif request.form['btn'] == "nahodny_vyber_vsetko":
+          session['kategoria'] = 'everything'
+          respond = make_response(redirect(url_for('jedlo')))
+          return respond
 
-        elif request.form['btn'] in list_random_kategorie:
-            for a in range(len(list_random_kategorie)):
-                if request.form['btn'] == list_random_kategorie[a]:
-                    session['kategoria'] = list_kategorie[a]
-                    break
+      elif request.form['btn'] in list_random_kategorie:
+          for a in range(len(list_random_kategorie)):
+              if request.form['btn'] == list_random_kategorie[a]:
+                  session['kategoria'] = list_kategorie[a]
+                  break
 
-            respond = make_response(redirect(url_for('jedlo')))
-            return respond
+          respond = make_response(redirect(url_for('jedlo')))
+          return respond
 
 
 @app.route('/jedlo', methods=['GET', 'POST'])
