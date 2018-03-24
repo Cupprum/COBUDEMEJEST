@@ -39,201 +39,85 @@
                 <li class="rectangle" style="width: 100%; left: 0"></li>
             </ul>
 
-            <div style="position: relative; text-align: center; margin-top: 10%">
+            <div style="position: absolute; text-align: center;bottom: 40%;width: 60%; left: 20%">
                 {% if html_jedlo %}
-                    <a href="{{ link }}" target="_blank"><h1 class="jedlo" style="border-width: 2px;height: 15%; width: 77%; margin-left: 11.5%; font-size: 4vw">
-                    <hr style="height:8%; visibility:hidden;" />
+                    <a href="{{ link }}" target="_blank"><h1 class="jedlo" style="border: 1px solid #000; height: 7vw; width: 96%; margin-left: 2%; vertical-align: middle; line-height: 7vw; font-size: 3vw;">
                     {{ jedlo }}</h1></a>
                 {% endif %}
 
                 {% if html_layout %}
-                    <img src="/static/cooking_final.png" style="width: 80%">
+                    <img src="/static/cooking_final.png" style="width: 100%">
                 {% endif %}
             
-                <button type="submit" class="tlacitko2" name="btn" value="set_category_all" style="border-width: 2px;width: 38.3%; height: 6vh">
+                <button type="submit" class="tlacitko2" name="btn" value="set_category_all" style="border-width: 1px; width: 48%; height: 5vw">
                     <div style="font-size: 1.75vw">ZOZNAM JEDAL</div>
                 </button>
-                <button type="submit" class="tlacitko" name="btn" value="nahodny_vyber_vsetko" style="width: 38.3%; height: 6vh">
+                <button type="submit" class="tlacitko" name="btn" value="nahodny_vyber_vsetko" style="width: 48%; height: 5vw">
                     <div style="font-size: 1.75vw">NAHODNY VYBER</div>
                 </button>
             </div>
 
-            <div class="rectangle" style="height: 25vh; bottom: 0"></div>
 
+            <div class="rectangle" style="height: 15vw; bottom: 0"></div>
 
-            
-    <ul style="position: absolute; bottom: 0%; margin-left: 9%;list-style-type:none; text-align: center;">
-        <li>
-            <span class="dot"></span>
-            <ul id="ranajky_popover" style="list-style-type:none;" hidden="True">
+        
+            <ul style="position: absolute; bottom: 0%; margin-left: 9%;list-style-type:none; text-align: center;">
                 <li>
-                    <div style="position: absolute;margin-top: -110px;margin-left: -100px">
-                        <button  type="submit" name="btn" value="set_category_ranajky" class="tlacitko2 tlacitka_spodny_panel">
-                            <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                        </button>
-                        <button type="submit" name="btn" value="ranajky_random" class="tlacitko2 tlacitka_spodny_panel">
-                            <span style="font-size: 15px">NAHODNY VYBER</span>
-                        </button>
+                    <span class="dot"></span>
+                </li>
+                <li>
+                    <div style="list-style-type:none">
+                        <button type="submit" class="button_spodnypanel opener_ranajky" name="btn" value="ranajky_random" style="font-size: 1.5vw">RANAJKY</button>
                     </div>
                 </li>
-            </ul>
-        </li>
-        <li>
-            <div style="list-style-type:none">
-                <span class="button_spodnypanel opener_ranajky" style="font-size: 1.5vw">RANAJKY</span>
-            </div>
-        </li>
-        <li>
-            <span style="font-size: 2vw;">&#9674;</span>
-        </li>
-    </ul>
-
-    <ul style="position: absolute;bottom: 0%;left: 32%;list-style-type:none; text-align: center;">
-        <li>
-            <span class="dot"></span>
-            <ul id="obed_popover" style="list-style-type:none;" hidden="True">
                 <li>
-                    <div style="position: absolute;margin-top: -110px;margin-left: -100px">
-                        <button  type="submit" name="btn" value="set_category_obed" class="tlacitko2 tlacitka_spodny_panel">
-                            <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                        </button>
-                        <button type="submit" name="btn" value="obed_random" class="tlacitko2 tlacitka_spodny_panel">
-                            <span style="font-size: 15px">NAHODNY VYBER</span>
-                        </button>
-                    </div>
+                    <span style="font-size: 2vw;">&#9674;</span>
                 </li>
             </ul>
-        </li>
-        <li>
-            <div style="list-style-type:none">
-                <span class="button_spodnypanel opener_obed" style="font-size: 1.5vw">OBED</span>
-            </div>
-        </li>
-        <li>
-            <span style="font-size: 2vw;">&#9674;</span>
-        </li>
-    </ul>
 
-    <ul style="position: absolute;bottom: 0%;left: 55%;list-style-type:none; text-align: center;">
-        <li>
-            <span class="dot"></span>
-            <ul id="vecera_popover" style="list-style-type:none;" hidden="True">
+            <ul style="position: absolute;bottom: 0%;left: 32%;list-style-type:none; text-align: center;">
                 <li>
-                    <div style="position: absolute;margin-top: -110px;margin-left: -100px">
-                        <button type="submit" name="btn" value="set_category_vecera" class="tlacitko2 tlacitka_spodny_panel">
-                            <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                        </button>
-                        <button type="submit" name="btn" value="vecera_random" class="tlacitko2 tlacitka_spodny_panel">
-                            <span style="font-size: 15px">NAHODNY VYBER</span>
-                        </button>
+                    <span class="dot"></span>
+                </li>
+                <li>
+                    <div style="list-style-type:none">
+                        <button type="submit" class="button_spodnypanel opener_ranajky" name="btn" value="obed_random" style="font-size: 1.5vw;">OBED</button>
                     </div>
                 </li>
-            </ul>
-        </li>
-        <li>
-            <div style="list-style-type:none">
-                <span class="button_spodnypanel opener_vecera" style="font-size: 1.5vw">VECERA</span>
-            </div>
-        </li>
-        <li>
-            <span style="font-size: 2vw;">&#9674;</span>
-        </li>
-    </ul>
-
-    <ul style="position: absolute;bottom: 0%;left: 78%;list-style-type:none; text-align: center;">
-        <li>
-            <span class="dot"></span>
-            <ul id="dezert_popover" style="list-style-type:none;" hidden="True">
                 <li>
-                    <div style="position: absolute;margin-top: -110px;margin-left: -100px">
-                        <button type="submit" name="btn" value="set_category_dezert" class="tlacitko2 tlacitka_spodny_panel">
-                            <span style="font-size: 15px">ABECEDNY ZOZNAM</span>
-                        </button>
-                        <button type="submit" name="btn" value="dezert_random" class="tlacitko2 tlacitka_spodny_panel">
-                            <span style="font-size: 15px">NAHODNY VYBER</span>
-                        </button>
-                    </div>
+                    <span style="font-size: 2vw;">&#9674;</span>
                 </li>
             </ul>
-        </li>
-        <li>
-            <div style="list-style-type:none">
-                <span class="button_spodnypanel opener_dezert" style="font-size: 1.5vw">DEZERT</span>
-            </div>
-        </li>
-        <li>
-            <span style="font-size: 2vw;">&#9674;</span>
-        </li>
-    </ul>
 
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-$( document ).ready(function() {
-    $('#ranajky_popover').removeAttr('hidden');
-    $('#obed_popover').removeAttr('hidden');
-    $('#vecera_popover').removeAttr('hidden');
-    $('#dezert_popover').removeAttr('hidden');
-    $('#ranajky_popover').slideUp(0);
-    $('#obed_popover').slideUp(0);
-    $('#vecera_popover').slideUp(0);
-    $('#dezert_popover').slideUp(0);
-});
+            <ul style="position: absolute;bottom: 0%;left: 55%;list-style-type:none; text-align: center;">
+                <li>
+                    <span class="dot"></span>
+                </li>
+                <li>
+                    <div style="list-style-type:none">
+                        <button type="submit" class="button_spodnypanel opener_ranajky" name="btn" value="vecera_random" style="font-size: 1.5vw">VECERA</button>
+                    </div>
+                </li>
+                <li>
+                    <span style="font-size: 2vw;">&#9674;</span>
+                </li>
+            </ul>
 
-$(document).ready(function() {
-    $('.opener_ranajky').click(function(e){
-        $('#ranajky_popover').slideDown(0);
-    });
-            $(window).click(function(e) {
-            var container = $('.opener_ranajky');
-            if (!container.is(e.target) && container.has(e.target).length == 0) {
-                $('#ranajky_popover').slideUp(0);
-            }
-        });
-});
+            <ul style="position: absolute;bottom: 0%;left: 78%;list-style-type:none; text-align: center;">
+                <li>
+                    <span class="dot"></span>
+                </li>
+                <li>
+                    <div style="list-style-type:none">
+                        <button type="submit" class="button_spodnypanel opener_ranajky" name="btn" value="dezert_random" style="font-size: 1.5vw">DEZERT</button>
+                    </div>
+                </li>
+                <li>
+                    <span style="font-size: 2vw;">&#9674;</span>
+                </li>
+            </ul>
 
-$(document).ready(function() {
-    $('.opener_obed').click(function(e){
-        $('#obed_popover').slideDown(0);
-    });
-            $(window).click(function(e) {
-            var container = $('.opener_obed');
-            if (!container.is(e.target) && container.has(e.target).length == 0) {
-                $('#obed_popover').slideUp(0);
-            }
-        });
-});
-
-$(document).ready(function() {
-    $('.opener_vecera').click(function(e){
-        $('#vecera_popover').slideDown(0);
-    });
-            $(window).click(function(e) {
-            var container = $('.opener_vecera');
-            if (!container.is(e.target) && container.has(e.target).length == 0) {
-                $('#vecera_popover').slideUp(0);
-            }
-        });
-});
-
-$(document).ready(function() {
-    $('.opener_dezert').click(function(e){
-        $('#dezert_popover').slideDown(0);
-    });
-            $(window).click(function(e) {
-            var container = $('.opener_dezert');
-            if (!container.is(e.target) && container.has(e.target).length == 0) {
-                $('#dezert_popover').slideUp(0);
-            }
-        });
-});
-</script>
-
-
-
-
-
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         </form>
     </div>
 </body>

@@ -114,8 +114,8 @@ div, body{
 
 .tlacitka_spodny_panel{
   background-color: #bfbfbf;
-  width: 220px;
-  height: 55px;
+  width: 20vw;
+  height: 4vw;
 }
 
 
@@ -150,14 +150,11 @@ div, body{
 }
 
 .jedlo {
-  width: 96%;
-  border: solid 1px #000000;
   color: #000000;
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
   text-align: center;
-  font-size: 50px;
-  margin-left: 2%;
+  font-size: 1.75vw;
 }
 
 .rolldown_button {
@@ -240,9 +237,12 @@ div, body{
   position: relative;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  padding: 10px;
+  padding: 0.6vw;
   text-align: center;
   color: #000000;
+  font-family: 'Roboto', sans-serif;
+  font-weight: normal;
+
 }
 .button_spodnypanel:before {
   content: '';
@@ -275,7 +275,7 @@ ul#horizontal_list li {
   position: relative;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  padding: 10px;
+  padding: 0.3vw;
   text-align: center;
   color: #000000;
   margin-top: 1.5vw;

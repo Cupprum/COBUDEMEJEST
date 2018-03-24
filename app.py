@@ -63,18 +63,6 @@ def home():
                           'vecera',
                           'dezert']
 
-        list_set_category = ['set_category_all',
-                             'set_category_ranajky',
-                             'set_category_obed',
-                             'set_category_vecera',
-                             'set_category_dezert']
-
-        list_attributov = ['vsetko',
-                           'ranajky',
-                           'obed',
-                           'vecera',
-                           'dezert']
-
         if request.form['btn'] == "DOMOV":
             respond = make_response(redirect(url_for('home')))
             return respond
@@ -85,14 +73,6 @@ def home():
 
         elif request.form['btn'] == "ONAS":
             return "nefunguje"
-
-        elif request.form['btn'] in list_set_category:
-            for a in range(0, len(list_attributov)):
-                if request.form['btn'] == list_set_category[a]:
-                    session['zoznam_kategoria'] = list_attributov[a]
-
-            respond = make_response(redirect(url_for('zoznam')))
-            return respond
 
         elif request.form['btn'] == "nahodny_vyber_vsetko":
             session['kategoria'] = 'everything'
@@ -149,31 +129,12 @@ def jedlo():
                           'vecera',
                           'dezert']
         
-        list_set_category = ['set_category_all',
-                             'set_category_ranajky',
-                             'set_category_obed',
-                             'set_category_vecera',
-                             'set_category_dezert']
-        
-        list_attributov = ['vsetko',
-                           'ranajky',
-                           'obed',
-                           'vecera',
-                           'dezert']
-
         if request.form['btn'] == "DOMOV":
             respond = make_response(redirect(url_for('home')))
             return respond
 
         elif request.form['btn'] == "ONAS":
             return "nefunguje"
-
-        elif request.form['btn'] in list_set_category:
-            for a in range(0, len(list_attributov)):
-                if request.form['btn'] == list_set_category[a]:
-                    session['zoznam_kategoria'] = list_attributov[a]
-            respond = make_response(redirect(url_for('zoznam')))
-            return respond
 
         elif request.form['btn'] == "nahodny_vyber_vsetko":
             session['kategoria'] = 'everything'
