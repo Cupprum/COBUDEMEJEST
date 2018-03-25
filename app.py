@@ -48,10 +48,6 @@ def make_session_permanent():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-  print(request.headers.get('User-Agent'))
-  user_agent = parse(request.headers.get('User-Agent'))
-  print(f"telefon {user_agent.is_mobile}")
-  print(f"pocitac {user_agent.is_pc}")
   if request.method == 'GET':
       session['kategoria'] = None
       if user_agent.is_mobile is True:
@@ -111,7 +107,8 @@ def jedlo():
 
     if request.method == 'GET':
         kategoria = session['kategoria']
-
+        user_agent = parse(request.headers.get('User-Agent'))
+  
         if kategoria == 'everything':
             aktualne_jedlo_nerandom = jedlo_sql.query.all()
             random_number = random.randint(0, len(aktualne_jedlo_nerandom))
@@ -129,6 +126,12 @@ def jedlo():
                 aktualne_jedlo = aktualne_jedlo_nerandom[random_number]
         
         respond = make_response(render_template('layout.html',
+                                                html_jedlo=True,
+                                                jedlo=aktualne_jedlo.nazov,
+                                                link=aktualne_jedlo.link
+                                                ))
+        if user_agent.is_mobile is True:
+          respond = make_response(render_template('mobile_templates/layout.html',
                                                 html_jedlo=True,
                                                 jedlo=aktualne_jedlo.nazov,
                                                 link=aktualne_jedlo.link
