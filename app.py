@@ -50,9 +50,11 @@ def make_session_permanent():
 def home():
   if request.method == 'GET':
       session['kategoria'] = None
+      user_agent = parse(request.headers.get('User-Agent'))
+
       if user_agent.is_mobile is True:
         return render_template('mobile_templates/layout.html',
-                             html_layout=True)  
+                             html_layout=True)
       return render_template('layout.html',
                              html_layout=True)
 
@@ -104,7 +106,6 @@ def home():
 
 @app.route('/jedlo', methods=['GET', 'POST'])
 def jedlo():
-
     if request.method == 'GET':
         kategoria = session['kategoria']
         user_agent = parse(request.headers.get('User-Agent'))
