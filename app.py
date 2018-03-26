@@ -80,9 +80,6 @@ def home():
           respond = make_response(redirect(url_for('pridavanie')))
           return respond
 
-      elif request.form['btn'] == "ONAS":
-          return "nefunguje"
-
       elif request.form['btn'] == "set_category_all":
           session['zoznam_kategoria'] = 'vsetko'
 
@@ -154,8 +151,9 @@ def jedlo():
             respond = make_response(redirect(url_for('home')))
             return respond
 
-        elif request.form['btn'] == "ONAS":
-            return "nefunguje"
+        elif request.form['btn'] == "PRIDAVANE":
+            respond = make_response(redirect(url_for('pridavanie')))
+            return respond
 
         elif request.form['btn'] == "nahodny_vyber_vsetko":
             session['kategoria'] = 'everything'
@@ -224,8 +222,9 @@ def zoznam():
             respond = make_response(redirect(url_for('home')))
             return respond
 
-        elif request.form['btn'] == "ONAS":
-            return "nefunguje"
+        elif request.form['btn'] == "PRIDAVANE":
+            respond = make_response(redirect(url_for('pridavanie')))
+            return respond
 
         elif request.form['btn'] in list_set_category:
             for a in range(0, len(list_attributov)):
@@ -263,6 +262,15 @@ def pridavanie():
             db.session.commit()
             respond = make_response(redirect(url_for('home')))
             return respond
+
+        elif request.form['btn'] == "DOMOV":
+            respond = make_response(redirect(url_for('home')))
+            return respond
+
+        elif request.form['btn'] == "PRIDAVANE":
+            respond = make_response(redirect(url_for('pridavanie')))
+            return respond
+
 
 
 @app.route('/login', methods=['GET', 'POST'])

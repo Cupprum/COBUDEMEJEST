@@ -16,29 +16,24 @@
 </head>
 <body style="height: 90%">
   <form action="/pridavanie" method = "post">
-    <ul id="horizontal_list" style="position: static;margin-top: 1%; width: 100%">
+    <div style="height: 100%;width: 100%">
+    <ul id="horizontal_list" style="position: relative; width: 100%; height: 10%">
         <li>
-            <img src="/static/cooking_final.png" style="width: 20%; margin-top: -0.5%">
+            <img src="/static/cooking_final.png" style="width: 20vw;margin-left: -30px; margin-top: -2vw;">
         </li>
-        <li style="margin-left: 30%">
+        <li style="margin-left: 25vw">
             <button type="submit" class="button_hornypanel" name="btn" value="DOMOV">
-                <span>DOMOV</span>
+                <span style="font-size: 1.75vw">DOMOV</span>
             </button>
         </li>
-        <li style="margin-left: 10%">
+        <li style="margin-left: 15vw">
             <button type="submit" class="button_hornypanel" name="btn" value="PRIDAVANE">
-                <span>PRIDAVANIE JEDAL</span>
-            </button>
-        </li>
-        <li style="margin-left: 10%">
-            <button type="submit" class="button_hornypanel" name="btn" value="ONAS">
-                <span>O NAS</span>
+                <span style="font-size: 1.75vw">PRIDAVANIE JEDAL</span>
             </button>
         </li>
         <br>
         <li class="rectangle" style="width: 100%; left: 0"></li>
     </ul>
-    </div>
     <div style="text-align: center; position: static; height: 50%">
       <br><br>
       <h1>{{ cosadeje }}</h1>
