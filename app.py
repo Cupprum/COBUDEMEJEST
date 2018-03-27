@@ -1,8 +1,10 @@
-from flask import request, render_template, redirect, url_for, session, make_response
+from flask import (
+    request, render_template, redirect, url_for, session, make_response)
 import os
 import json
 import random
-from sql_table_maker import db, app, jedlo_sql, docastne_jedlo_sql, insert_one_func
+from sql_table_maker import (
+    db, app, jedlo_sql, docastne_jedlo_sql, insert_one_func)
 from sqlalchemy import exc
 from user_agents import parse
 
@@ -54,7 +56,7 @@ def home():
         if user_agent.is_mobile is True:
             respond = make_response(
                 render_template('mobile_templates/layout.html',
-                                 html_layout=True))
+                                html_layout=True))
 
         return respond
 
@@ -252,7 +254,7 @@ def pridavanie():
 
             len_nazov = len(docastne_nazov)
             len_link = len(docastne_link)
-            print(f"{len_nazov} {len_link} {docastne_kategoria}")
+
             if len_nazov == 0 or len_link == 0 or docastne_kategoria == "None":
                 respond = make_response(
                     render_template('pridavanie.html',
