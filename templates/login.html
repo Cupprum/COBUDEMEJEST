@@ -1,12 +1,43 @@
 <html>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+<head>
+  <title>Co budeme jest</title>
+  <link rel="icon" type="image/png" href="/static/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/static/favicon-16x16.png" sizes="16x16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+
+</head>
 <body>
-    <center>
-        <form action="/login" method = "post">
-            <h1>ZADAJ HESLO</h1>
-            <input type="text" name="passcode" placeholder="Password.." style="position: static; width: 50%; left: 25%"><br>
-            <input type="submit" name="btn" value="Submit" class="tlacitko2" style="position: static; width: 50%; left: 25%;">
-        </form>
-    </center>
+    <form action="/login" method = "post">
+	    <ul id="horizontal_list" style="position: relative; width: 100%; height: 10%">
+	        <li>
+	            <img src="/static/cooking_final.png" style="width: 20vw;margin-left: -30px; margin-top: -2vw;">
+	        </li>
+	        <li style="margin-left: 25vw">
+	            <button type="submit" class="button_hornypanel" name="btn" value="DOMOV">
+	                <span style="font-size: 1.75vw">DOMOV</span>
+	            </button>
+	        </li>
+	        <li style="margin-left: 15vw">
+	            <button type="submit" class="button_hornypanel" name="btn" value="PRIDAVANE">
+	                <span style="font-size: 1.75vw">PRIDAVANIE JEDAL</span>
+	            </button>
+	        </li>
+	        <br>
+	        <li class="rectangle" style="width: 100%; left: 0"></li>
+	    </ul>
+	    
+	    <center>
+            <h1 style="font-size: 2vw; margin-top: 2vw;">ZADAJ HESLO</h1>
+            <input type="text" name="passcode" placeholder="Password.." style="position: static; width: 50%; left: 25%; height: 4vw; font-size: 2vw">
+            <input type="submit" name="btn" value="Submit" class="tlacitko2" style="position: static; width: 50%; left: 25%; margin-top: 2vw; font-size: 2vw; height: 4vw">
+        </center>
+    </form>
 </body>
 </html>

@@ -296,6 +296,14 @@ def login():
             respond = redirect(url_for('home'))
             return respond
 
+        elif request.form['btn'] == "DOMOV":
+            respond = make_response(redirect(url_for('home')))
+            return respond
+
+        elif request.form['btn'] == "PRIDAVANE":
+            respond = make_response(redirect(url_for('pridavanie')))
+            return respond
+
 
 @app.route('/justadminthings', methods=['GET', 'POST'])
 def justadminthings():
@@ -401,6 +409,14 @@ def justadminthings():
                 DOCASTNE=docastne,
                 cosatodeje=cosatodeje)
 
+            return respond
+
+        elif request.form['btn'] == "DOMOV":
+            respond = make_response(redirect(url_for('home')))
+            return respond
+
+        elif request.form['btn'] == "PRIDAVANE":
+            respond = make_response(redirect(url_for('pridavanie')))
             return respond
 
 
