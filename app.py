@@ -241,9 +241,16 @@ def zoznam():
 @app.route('/pridavanie', methods=['GET', 'POST'])
 def pridavanie():
     if request.method == 'GET':
+        user_agent = parse(request.headers.get('User-Agent'))
+
         respond = make_response(
             render_template('pridavanie.html',
                             cosadeje="Vase kulinarske zazitky."))
+
+        if user_agent.is_mobile is True:
+            respond = make_response(
+                render_template('mobile_templates/pridavanie.html',
+                                cosadeje="Vase kulinarske zazitky."))
         return respond
 
     elif request.method == 'POST':
