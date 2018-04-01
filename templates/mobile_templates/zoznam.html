@@ -14,13 +14,7 @@
 </head>
 <body>
     <div style="height: 80%;width: 90%">
-        {% if html_layout %}
-        <form action="/" method = "post">
-        {% endif %}
-        {% if html_jedlo %}
-        <form action="/jedlo" method = "post">
-        {% endif %}
-
+        <form action="/zoznam" method = "post">
             <ul id="horizontal_list" style="position: relative; width: 100%; height: 15%; margin-top: 5%">
                 <li style="margin-left: 15vw">
                     <button type="submit" class="button_hornypanel" name="btn" value="DOMOV">
@@ -39,8 +33,8 @@
         <button type="submit" name="btn" value="set_category_all" class="rolldown_button_mobile" style="width: 80%; top: 12.5%; left: 10%"><span>VSETKO</span></button>
         <button type="submit" name="btn" value="set_category_ranajky" class="rolldown_button_mobile" style="left: 10%; margin-top: -2vw"><span>RANAJKY</span></button>
         <button type="submit" name="btn" value="set_category_obed" class="rolldown_button_mobile" style="left: 51%; margin-top: -2vw"><span>OBED</span></button>
-        <button type="submit" name="btn" value="set_category_vecera" class="rolldown_button_mobile" style="left: 10%; margin-top: 8vw"><span>VECERA</span></button>
-        <button type="submit" name="btn" value="set_category_dezert" class="rolldown_button_mobile" style="left: 51%; margin-top: 8vw"><span>DEZERT</span></button>
+        <button type="submit" name="btn" value="set_category_vecera" class="rolldown_button_mobile" style="left: 10%; margin-top: 10vw"><span>VECERA</span></button>
+        <button type="submit" name="btn" value="set_category_dezert" class="rolldown_button_mobile" style="left: 51%; margin-top: 10vw"><span>DEZERT</span></button>
       
         <span class="covypisuje" style="width: 80%; left: 10%; font-size: 5vw; height: 9vw; border-width: 2px;">{{ whats_showing }}</span>
 
