@@ -108,7 +108,7 @@ def jedlo():
 
         if kategoria == 'everything':
             aktualne_jedlo_nerandom = jedlo_sql.query.all()
-            random_number = random.randint(0, len(aktualne_jedlo_nerandom))
+            random_number = random.randint(0, len(aktualne_jedlo_nerandom) - 1)
             aktualne_jedlo = aktualne_jedlo_nerandom[random_number]
 
         else:
@@ -168,6 +168,12 @@ def jedlo():
                     session['kategoria'] = list_kategorie[a]
                     break
             respond = make_response(redirect(url_for('jedlo')))
+            return respond
+
+        elif request.form['btn'] == "set_category_all":
+            session['zoznam_kategoria'] = 'vsetko'
+
+            respond = make_response(redirect(url_for('zoznam')))
             return respond
 
 
