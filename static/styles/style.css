@@ -259,7 +259,6 @@ div, body{
   background-color: rgba(0,0,0,0);
   border: solid 1px #000000;
   padding: 10px;
-  height: 50px;
   text-align: center;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;

@@ -31,14 +31,14 @@
             </ul>
 
         <button type="submit" name="btn" value="set_category_all" class="rolldown_button_mobile" style="width: 80%; top: 12.5%; left: 10%"><span>VSETKO</span></button>
-        <button type="submit" name="btn" value="set_category_ranajky" class="rolldown_button_mobile" style="left: 10%; margin-top: -2vw"><span>RANAJKY</span></button>
-        <button type="submit" name="btn" value="set_category_obed" class="rolldown_button_mobile" style="left: 51%; margin-top: -2vw"><span>OBED</span></button>
-        <button type="submit" name="btn" value="set_category_vecera" class="rolldown_button_mobile" style="left: 10%; margin-top: 10vw"><span>VECERA</span></button>
-        <button type="submit" name="btn" value="set_category_dezert" class="rolldown_button_mobile" style="left: 51%; margin-top: 10vw"><span>DEZERT</span></button>
-      
-        <span class="covypisuje" style="width: 80%; left: 10%; font-size: 5vw; height: 9vw; border-width: 2px;">{{ whats_showing }}</span>
+        <button type="submit" name="btn" value="set_category_ranajky" class="rolldown_button_mobile" style="left: 10%; margin-top: 0vw"><span>RANAJKY</span></button>
+        <button type="submit" name="btn" value="set_category_obed" class="rolldown_button_mobile" style="left: 51%; margin-top: 0vw"><span>OBED</span></button>
+        <button type="submit" name="btn" value="set_category_vecera" class="rolldown_button_mobile" style="left: 10%; margin-top: 15vw"><span>VECERA</span></button>
+        <button type="submit" name="btn" value="set_category_dezert" class="rolldown_button_mobile" style="left: 51%; margin-top: 15vw"><span>DEZERT</span></button>
+        
+        <span class="covypisuje" style="width: 80%; left: 10%; font-size: 5vw; border-width: 2px; margin-top: 10vw">{{ whats_showing }}</span>
 
-        <div style="width: 80%; position: absolute; top: 40%; left: 10%; margin-top: 3.5vw">
+        <div style="width: 80%; position: absolute; top: 45%; left: 10%; margin-top: 3.5vw">
             {% for a in list1 %}
                 <a href="{{ a.link }}" target="_blank"><button class="jedla_button_mobile" type="button"><span>{{ a.nazov }}</span></button></a>
             {% endfor %}
