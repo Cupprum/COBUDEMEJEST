@@ -188,6 +188,8 @@ def zoznam():
 
         kategoria = session.get('zoznam_kategoria')
 
+        user_agent = parse(request.headers.get('User-Agent'))
+
         if kategoria not in list_attributov:
             searching_for_food = jedlo_sql.query.all()
 
@@ -213,6 +215,13 @@ def zoznam():
                                                 list2=list2,
                                                 whats_showing=kategoria.upper()
                                                 ))
+
+        if user_agent.is_mobile is True:
+            respond = make_response(
+                render_template('mobile_templates/zoznam.html',
+                                list1=list1 + list2,
+                                whats_showing=kategoria.upper()
+                                ))
         return respond
 
     elif request.method == 'POST':
