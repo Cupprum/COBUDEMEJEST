@@ -1,7 +1,6 @@
 from flask import (
     request, render_template, redirect, url_for, session, make_response)
 import os
-import json
 import random
 from sql_table_maker import (
     db, app, jedlo_sql, docastne_jedlo_sql, insert_one_func)
@@ -9,7 +8,11 @@ from sqlalchemy import exc
 from user_agents import parse
 
 
-db.create_all()
+class docastne_jedlo_cls:
+    def __init__(self, docastne_nazov, docastne_link, docastne_kategoria):
+        self.nazov = docastne_nazov
+        self.link = docastne_link
+        self.kategoria = docastne_kategoria
 
 
 def whole_db_search():
@@ -270,22 +273,22 @@ def pridavanie():
 
     elif request.method == 'POST':
         if request.form['btn'] == 'button_confirm':
-            docastne_nazov = request.form['input_name']
-            docastne_link = request.form['input_link']
-            docastne_kategoria = request.form['select_category']
+            docastne = docastne_jedlo_cls(request.form['input_name'],
+                                          request.form['input_link'],
+                                          request.form['select_category'])
 
-            len_nazov = len(docastne_nazov)
-            len_link = len(docastne_link)
+            len_nazov = len(docastne.nazov)
+            len_link = len(docastne.link)
 
-            if len_nazov == 0 or len_link == 0 or docastne_kategoria == "None":
+            if len_nazov == 0 or len_link == 0 or docastne.kategoria == "None":
                 respond = make_response(
                     render_template('pridavanie.html',
                                     cosadeje="Nezadal si to spravne"))
                 return respond
 
-            jedlo_pridavane = docastne_jedlo_sql(nazov=docastne_nazov,
-                                                 attribute=docastne_kategoria,
-                                                 link=docastne_link)
+            jedlo_pridavane = docastne_jedlo_sql(nazov=docastne.nazov,
+                                                 attribute=docastne.kategoria,
+                                                 link=docastne.link)
             db.session.add(jedlo_pridavane)
             db.session.commit()
             respond = make_response(redirect(url_for('home')))
