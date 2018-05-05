@@ -1,6 +1,5 @@
 from flask import (
     request, render_template, redirect, url_for, session, make_response)
-import os
 import random
 from sql_table_maker import (
     db, app, jedlo_sql, docastne_jedlo_sql, insert_one_func)
@@ -444,8 +443,6 @@ def justadminthings():
             respond = make_response(redirect(url_for('pridavanie')))
             return respond
 
-
-app.secret_key = os.environ["SESSION_KEY"]
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)

@@ -5,11 +5,16 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 url = urlparse(os.environ["DATABASE_URL"])
-db_syntax = "dbname=%s user=%s password=%s host=%s " % (url.path[1:], url.username, url.password, url.hostname)
-db_syntax_final = ('postgresql://' + url.username + ':' + url.password + '@' + url.hostname + '/' + url.path[1:])
+db_syntax = "dbname=%s user=%s password=%s host=%s " % (
+    url.path[1:], url.username, url.password, url.hostname)
+db_syntax_final = (
+    'postgresql://' + url.username + ':' + url.password + '@' +
+    url.hostname + '/' + url.path[1:])
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = db_syntax_final
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = os.environ["SESSION_KEY"]
 db = SQLAlchemy(app)
 
 
@@ -38,6 +43,7 @@ def create_func():
 def drop_func():
     db.drop_all()
 
+
 def insert_one_func(nazov, attribute, link):
     jedlo_pridavane = jedlo_sql(nazov=nazov,
                                 attribute=attribute,
@@ -45,6 +51,7 @@ def insert_one_func(nazov, attribute, link):
                                 )
     db.session.add(jedlo_pridavane)
     db.session.commit()
+
 
 def insert_manual_one_func():
     db.create_all()
@@ -73,7 +80,9 @@ def insert_all_func():
                 link_xml = link_xml[13:-9]
                 exists = jedlo_sql.query.filter_by(nazov=nazov_xml).first()
                 if exists is None:
-                    jedlo_pridavane = jedlo_sql(nazov=nazov_xml, attribute=attribute_xml, link=link_xml)
+                    jedlo_pridavane = jedlo_sql(nazov=nazov_xml,
+                                                attribute=attribute_xml,
+                                                link=link_xml)
                     db.session.add(jedlo_pridavane)
                 ypsilon += 1
     db.session.commit()
